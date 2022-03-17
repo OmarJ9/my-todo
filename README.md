@@ -1,16 +1,15 @@
-# todo_app
+# Todo App
 
-A new Flutter project.
+An App To manage all your tasks with firebase backend.
 
-## Getting Started
+### Features :
+- Login/SignUp with Firebase.
+- Login/SignUp with Google Account.
+- You don't have to login (Anonymous Mode).
+- Add/Remove Tasks Offline.
+- Beautiful UI.
+- Beautiful Animation.
+- The App will notify you when a task begins/ends.
 
-This project is a starting point for a Flutter application.
+### Screenshots :
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
