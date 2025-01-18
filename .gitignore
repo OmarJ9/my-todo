@@ -9,6 +9,10 @@
 .history
 .svn/
 
+firebase.json
+/android/app/google-services.json
+/ios/Runner/GoogleService-info.plist
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -44,3 +48,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
