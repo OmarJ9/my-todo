@@ -31,7 +31,7 @@ class MyButton extends StatelessWidget {
           title,
           style: Theme.of(context)
               .textTheme
-              .headline1
+              .displayLarge
               ?.copyWith(fontSize: 11.sp, color: Appcolors.white),
         ),
       ),

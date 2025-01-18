@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:todo_app/bloc/auth/authentication_cubit.dart';
-import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/data/repositories/firestore_crud.dart';
 import 'package:todo_app/presentation/widgets/mybutton.dart';
@@ -23,7 +21,7 @@ import 'package:todo_app/shared/services/notification_service.dart';
 import 'package:todo_app/shared/styles/colors.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -52,27 +50,26 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     AuthenticationCubit authenticationCubit = BlocProvider.of(context);
-    ConnectivityCubit connectivitycubit = BlocProvider.of(context);
     final user = FirebaseAuth.instance.currentUser;
     String username = user!.isAnonymous ? 'Anonymous' : 'User';
 
     return Scaffold(
         body: MultiBlocListener(
             listeners: [
-          BlocListener<ConnectivityCubit, ConnectivityState>(
-              listener: (context, state) {
-            if (state is ConnectivityOnlineState) {
-              MySnackBar.error(
-                  message: 'You Are Online Now ',
-                  color: Colors.green,
-                  context: context);
-            } else {
-              MySnackBar.error(
-                  message: 'Please Check Your Internet Connection',
-                  color: Colors.red,
-                  context: context);
-            }
-          }),
+          // BlocListener<ConnectivityCubit, ConnectivityState>(
+          //     listener: (context, state) {
+          //   if (state is ConnectivityOnlineState) {
+          //     MySnackBar.error(
+          //         message: 'You Are Online Now ',
+          //         color: Colors.green,
+          //         context: context);
+          //   } else {
+          //     MySnackBar.error(
+          //         message: 'Please Check Your Internet Connection',
+          //         color: Colors.red,
+          //         context: context);
+          //   }
+          // }),
           BlocListener<AuthenticationCubit, AuthenticationState>(
             listener: (context, state) {
               if (state is UnAuthenticationState) {
@@ -120,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .displayLarge!
                                   .copyWith(fontSize: 15.sp),
                             ),
                           ),
@@ -146,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             DateFormat('MMMM, dd').format(currentdate),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1!
+                                .displayLarge!
                                 .copyWith(fontSize: 17.sp),
                           ),
                           const Spacer(),
@@ -166,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      _buildDatePicker(context, connectivitycubit),
+                      _buildDatePicker(context),
                       SizedBox(
                         height: 4.h,
                       ),
@@ -191,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) {
                                     var task = snapshot.data![index];
-                                    Widget _taskcontainer = TaskContainer(
+                                    Widget taskcontainer = TaskContainer(
                                       id: task.id,
                                       color: colors[task.colorindex],
                                       title: task.title,
@@ -209,11 +206,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ? BounceInLeft(
                                                 duration: const Duration(
                                                     milliseconds: 1000),
-                                                child: _taskcontainer)
+                                                child: taskcontainer)
                                             : BounceInRight(
                                                 duration: const Duration(
                                                     milliseconds: 1000),
-                                                child: _taskcontainer));
+                                                child: taskcontainer));
                                   },
                                 )
                               : _nodatawidget();
@@ -292,7 +289,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         : MyTextfield(
                             hint: '',
                             icon: Icons.person,
-                            validator: (value) {},
+                            validator: (value) {
+                              return null;
+                            },
                             textEditingController: _usercontroller),
                     SizedBox(
                       height: 3.h,
@@ -372,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'There Is No Tasks',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 16.sp),
           ),
         ],
@@ -380,8 +379,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  SizedBox _buildDatePicker(
-      BuildContext context, ConnectivityCubit connectivityCubit) {
+  SizedBox _buildDatePicker(BuildContext context) {
     return SizedBox(
       height: 15.h,
       child: DatePicker(
@@ -389,27 +387,20 @@ class _MyHomePageState extends State<MyHomePage> {
         width: 20.w,
         initialSelectedDate: DateTime.now(),
         dateTextStyle:
-            Theme.of(context).textTheme.headline1!.copyWith(fontSize: 18.sp),
+            Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 18.sp),
         dayTextStyle: Theme.of(context)
             .textTheme
-            .subtitle1!
+            .titleMedium!
             .copyWith(fontSize: 10.sp, color: Appcolors.black),
         monthTextStyle: Theme.of(context)
             .textTheme
-            .subtitle1!
+            .titleMedium!
             .copyWith(fontSize: 10.sp, color: Appcolors.black),
         selectionColor: Colors.deepPurple,
         onDateChange: (DateTime newdate) {
           setState(() {
             currentdate = newdate;
           });
-          if (connectivityCubit.state is ConnectivityOnlineState) {
-          } else {
-            MySnackBar.error(
-                message: 'Please Check Your Internet Conection',
-                color: Colors.red,
-                context: context);
-          }
         },
       ),
     );

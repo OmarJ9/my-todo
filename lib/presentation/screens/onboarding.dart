@@ -79,7 +79,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                       'Back',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline1
+                                          .displayLarge
                                           ?.copyWith(
                                             fontSize: 13.sp,
                                             color: Colors.white38,

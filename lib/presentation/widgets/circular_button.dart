@@ -42,7 +42,7 @@ class CircularButton extends StatelessWidget {
                     'Begin',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .displayLarge
                         ?.copyWith(fontSize: 9.sp, color: Appcolors.white),
                   ),
           ),

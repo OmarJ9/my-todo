@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:todo_app/bloc/auth/authentication_cubit.dart';
-import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
 import 'package:todo_app/presentation/widgets/mybutton.dart';
 import 'package:todo_app/presentation/widgets/myindicator.dart';
 import 'package:todo_app/presentation/widgets/mysnackbar.dart';
@@ -14,7 +13,7 @@ import 'package:todo_app/shared/styles/colors.dart';
 import 'package:todo_app/shared/validators.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -45,7 +44,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     AuthenticationCubit authcubit = BlocProvider.of(context);
-    ConnectivityCubit connectivitycubit = BlocProvider.of(context);
     return Scaffold(
       backgroundColor: Appcolors.white,
       appBar: AppBar(
@@ -94,11 +92,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         Text(
                           'Heey !',
-                          style:
-                              Theme.of(context).textTheme.headline1?.copyWith(
-                                    fontSize: 20.sp,
-                                    letterSpacing: 2,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(
+                                fontSize: 20.sp,
+                                letterSpacing: 2,
+                              ),
                         ),
                         SizedBox(
                           height: 1.5.h,
@@ -107,7 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           'Create a New Account !',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
+                              .titleMedium
                               ?.copyWith(
                                   fontSize: 12.sp,
                                   letterSpacing: 2,
@@ -162,16 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           width: 80.w,
                           title: 'Sign Up',
                           func: () {
-                            if (connectivitycubit.state
-                                is ConnectivityOnlineState) {
-                              _signupewithemailandpass(context, authcubit);
-                            } else {
-                              MySnackBar.error(
-                                  message:
-                                      'Please Check Your Internet Conection',
-                                  color: Colors.red,
-                                  context: context);
-                            }
+                            _signupewithemailandpass(context, authcubit);
                           },
                         ),
                         SizedBox(
@@ -184,7 +175,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               'Already have an Account ?',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .titleMedium
                                   ?.copyWith(
                                       fontSize: 8.sp,
                                       fontWeight: FontWeight.bold),
@@ -200,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 'Login',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .displayLarge
                                     ?.copyWith(
                                       fontSize: 9.sp,
                                       color: Colors.deepPurple,
@@ -223,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               'Or',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1
+                                  .displayLarge
                                   ?.copyWith(
                                     fontSize: 9.sp,
                                     color: Colors.deepPurple,
@@ -243,16 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           children: [
                             InkWell(
                               onTap: () {
-                                if (connectivitycubit.state
-                                    is ConnectivityOnlineState) {
-                                  authcubit.googleSignIn();
-                                } else {
-                                  MySnackBar.error(
-                                      message:
-                                          'Please Check Your Internet Conection',
-                                      color: Colors.red,
-                                      context: context);
-                                }
+                                authcubit.googleSignIn();
                               },
                               child: Image.asset(
                                 MyAssets.googleicon,
@@ -270,7 +252,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     'It will be added soon !!',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline1
+                                        .displayLarge
                                         ?.copyWith(
                                             fontSize: 11.sp,
                                             color: Appcolors.white),

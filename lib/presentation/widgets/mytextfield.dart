@@ -24,7 +24,7 @@ class MyTextfield extends StatelessWidget {
       this.showicon = true,
       this.ontap,
       this.keyboardtype = TextInputType.text,
-      this.maxlenght = null})
+      this.maxlenght})
       : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class MyTextfield extends StatelessWidget {
       keyboardType: keyboardtype,
       onTap: readonly ? ontap : null,
       controller: textEditingController,
-      style: Theme.of(context).textTheme.headline1?.copyWith(
+      style: Theme.of(context).textTheme.displayLarge?.copyWith(
             fontSize: 9.sp,
             color: Appcolors.black,
           ),
@@ -54,7 +54,7 @@ class MyTextfield extends StatelessWidget {
               )),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.3.h),
-          hintStyle: Theme.of(context).textTheme.headline1?.copyWith(
+          hintStyle: Theme.of(context).textTheme.displayLarge?.copyWith(
                 fontSize: 9.sp,
                 color: Colors.deepPurple,
               ),

@@ -3,21 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:todo_app/bloc/auth/authentication_cubit.dart';
-import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
 import 'package:todo_app/presentation/widgets/mybutton.dart';
 import 'package:todo_app/presentation/widgets/myindicator.dart';
-import 'package:todo_app/presentation/widgets/mysnackbar.dart';
 import 'package:todo_app/shared/constants/assets_path.dart';
 import 'package:todo_app/shared/constants/strings.dart';
 import 'package:todo_app/shared/styles/colors.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     AuthenticationCubit authcubit = BlocProvider.of(context);
-    ConnectivityCubit connectivitycubit = BlocProvider.of(context);
     return Scaffold(
       backgroundColor: Appcolors.white,
       body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
@@ -53,7 +50,7 @@ class WelcomePage extends StatelessWidget {
                       'Hello !',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .displayLarge
                           ?.copyWith(letterSpacing: 3),
                     ),
                     SizedBox(
@@ -62,7 +59,7 @@ class WelcomePage extends StatelessWidget {
                     Text(
                       'Welcome to the best Task manager baby !',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             letterSpacing: 3,
                             fontSize: 10.sp,
                             wordSpacing: 2,
@@ -93,7 +90,7 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    _myOutlinedButton(context, authcubit, connectivitycubit),
+                    _myOutlinedButton(context, authcubit),
                   ],
                 ),
               ),
@@ -105,8 +102,10 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Container _myOutlinedButton(BuildContext context, AuthenticationCubit cubit,
-      ConnectivityCubit connectivityCubit) {
+  Container _myOutlinedButton(
+    BuildContext context,
+    AuthenticationCubit cubit,
+  ) {
     return Container(
       width: 80.w,
       decoration: BoxDecoration(
@@ -114,19 +113,12 @@ class WelcomePage extends StatelessWidget {
           border: Border.all(color: Colors.deepPurple, width: 2)),
       child: MaterialButton(
         onPressed: () {
-          if (connectivityCubit.state is ConnectivityOnlineState) {
-            cubit.signinanonym();
-          } else {
-            MySnackBar.error(
-                message: 'Please Check Your Internet Conection',
-                color: Colors.red,
-                context: context);
-          }
+          cubit.signinanonym();
         },
         child: Center(
           child: Text(
             'Register Later',
-            style: Theme.of(context).textTheme.headline1?.copyWith(
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
                   fontSize: 11.sp,
                   color: Colors.deepPurple,
                 ),

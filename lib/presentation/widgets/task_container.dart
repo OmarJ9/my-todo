@@ -34,12 +34,12 @@ class TaskContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.red,
         ),
+        alignment: Alignment.centerLeft,
         child: const Icon(
           Icons.delete,
           color: Colors.white,
           size: 40,
         ),
-        alignment: Alignment.centerLeft,
       ),
       child: Container(
         width: 100.w,
@@ -56,7 +56,7 @@ class TaskContainer extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     color: Colors.white,
                     fontSize: 14.sp,
                   ),
@@ -74,7 +74,7 @@ class TaskContainer extends StatelessWidget {
                 ),
                 Text(
                   '$starttime - $endtime',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         color: Colors.white,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w300,
@@ -86,7 +86,7 @@ class TaskContainer extends StatelessWidget {
               note,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     color: Colors.white,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w300,

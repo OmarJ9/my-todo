@@ -1,15 +1,13 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:todo_app/bloc/connectivity/connectivity_cubit.dart';
 import 'package:todo_app/bloc/onboarding/onboarding_cubit.dart';
+import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/presentation/screens/my_homepage.dart';
 import 'package:todo_app/presentation/screens/onboarding.dart';
 import 'package:todo_app/presentation/screens/welcome_page.dart';
@@ -22,7 +20,9 @@ import 'bloc/auth/authentication_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -52,8 +52,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.approute, required this.seen})
-      : super(key: key);
+  const MyApp({super.key, required this.approute, required this.seen});
 
   final AppRoute approute;
   final bool? seen;
@@ -64,10 +63,6 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Orientation orientation, deviceType) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-                lazy: false,
-                create: (context) =>
-                    ConnectivityCubit()..initializeConnectivity()),
             BlocProvider(
               create: (context) => OnboardingCubit(),
             ),

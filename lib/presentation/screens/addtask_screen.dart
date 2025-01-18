@@ -17,8 +17,8 @@ class AddTaskScreen extends StatefulWidget {
 
   const AddTaskScreen({
     this.task,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
@@ -40,25 +40,25 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   List<DropdownMenuItem<int>> menuItems = const [
     DropdownMenuItem(
+        value: 5,
         child: Text(
           "5 Min Earlier",
-        ),
-        value: 5),
+        )),
     DropdownMenuItem(
+        value: 10,
         child: Text(
           "10 Min Earlier",
-        ),
-        value: 10),
+        )),
     DropdownMenuItem(
+        value: 15,
         child: Text(
           "15 Min Earlier",
-        ),
-        value: 15),
+        )),
     DropdownMenuItem(
+        value: 20,
         child: Text(
           "20 Min Earlier",
-        ),
-        value: 20),
+        )),
   ];
 
   @override
@@ -118,7 +118,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             'Title',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 14.sp),
           ),
           SizedBox(
@@ -140,7 +140,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             'Note',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 14.sp),
           ),
           SizedBox(
@@ -160,7 +160,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             'Date',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 14.sp),
           ),
           SizedBox(
@@ -171,7 +171,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             icon: Icons.calendar_today,
             readonly: true,
             showicon: false,
-            validator: (value) {},
+            validator: (value) {
+              return null;
+            },
             ontap: () {
               _showdatepicker();
             },
@@ -190,7 +192,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       'Start Time',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14.sp),
                     ),
                     SizedBox(
@@ -202,12 +204,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       icon: Icons.watch_outlined,
                       showicon: false,
                       readonly: true,
-                      validator: (value) {},
+                      validator: (value) {
+                        return null;
+                      },
                       ontap: () {
                         Navigator.push(
                             context,
                             showPicker(
-                              value: _starthour,
+                              value: Time.fromTimeOfDay(_starthour, null),
                               is24HrFormat: true,
                               accentColor: Colors.deepPurple,
                               onChange: (TimeOfDay newvalue) {
@@ -239,7 +243,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       'End Time',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .displayLarge!
                           .copyWith(fontSize: 14.sp),
                     ),
                     SizedBox(
@@ -251,12 +255,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       icon: Icons.watch,
                       showicon: false,
                       readonly: true,
-                      validator: (value) {},
+                      validator: (value) {
+                        return null;
+                      },
                       ontap: () {
                         Navigator.push(
                             context,
                             showPicker(
-                              value: endhour,
+                              value: Time.fromTimeOfDay(endhour, null),
                               is24HrFormat: true,
                               minHour: _starthour.hour.toDouble() - 1,
                               accentColor: Colors.deepPurple,
@@ -281,7 +287,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             'Reminder',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 14.sp),
           ),
           SizedBox(
@@ -295,7 +301,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             'Colors',
             style: Theme.of(context)
                 .textTheme
-                .headline1!
+                .displayLarge!
                 .copyWith(fontSize: 14.sp),
           ),
           SizedBox(
@@ -392,7 +398,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       items: menuItems,
       style: Theme.of(context)
           .textTheme
-          .headline1!
+          .displayLarge!
           .copyWith(fontSize: 9.sp, color: Colors.deepPurple),
       icon: Icon(
         Icons.arrow_drop_down,
@@ -446,7 +452,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         ),
         Text(
           isEditMote ? 'Update Task' : 'Add Task',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         const SizedBox()
       ],
