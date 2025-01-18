@@ -7,7 +7,7 @@ import 'package:todo_app/features/auth/presentation/auth/authentication_cubit.da
 import 'package:todo_app/core/widgets/mybutton.dart';
 import 'package:todo_app/core/widgets/myindicator.dart';
 import 'package:todo_app/core/constants/app_assets.dart';
-import 'package:todo_app/core/theme/colors.dart';
+import 'package:todo_app/core/theme/app_colors.dart';
 
 import '../../core/route/app_router.dart';
 

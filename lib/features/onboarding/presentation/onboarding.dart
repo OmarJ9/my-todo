@@ -9,7 +9,7 @@ import 'package:todo_app/core/widgets/mybutton.dart';
 import 'package:todo_app/features/welcome/mycustompainter.dart';
 import 'package:todo_app/features/onboarding/presentation/onboarding_item.dart';
 import 'package:todo_app/core/constants/consts_variables.dart';
-import 'package:todo_app/core/theme/colors.dart';
+import 'package:todo_app/core/theme/app_colors.dart';
 
 import '../../../core/route/app_router.dart';
 

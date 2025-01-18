@@ -13,7 +13,7 @@ import 'package:todo_app/features/welcome/welcome_page.dart';
 import 'package:todo_app/core/widgets/myindicator.dart';
 import 'package:todo_app/core/constants/consts_variables.dart';
 import 'package:todo_app/core/route/app_router.dart';
-import 'package:todo_app/core/theme/themes.dart';
+import 'package:todo_app/core/theme/app_thems.dart';
 
 import 'features/auth/presentation/auth/authentication_cubit.dart';
 

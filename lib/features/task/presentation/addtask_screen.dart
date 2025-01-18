@@ -7,7 +7,7 @@ import 'package:todo_app/data/repositories/firestore_crud.dart';
 import 'package:todo_app/core/widgets/mybutton.dart';
 import 'package:todo_app/core/widgets/mytextfield.dart';
 import 'package:todo_app/core/constants/consts_variables.dart';
-import 'package:todo_app/core/theme/colors.dart';
+import 'package:todo_app/core/theme/app_colors.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final TaskModel? task;

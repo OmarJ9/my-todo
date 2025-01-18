@@ -1,6 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/theme/colors.dart';
+import 'package:todo_app/core/theme/app_colors.dart';
 
 class MySnackBar extends Flushbar {
   MySnackBar({super.key});

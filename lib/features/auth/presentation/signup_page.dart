@@ -10,7 +10,7 @@ import 'package:todo_app/core/widgets/myindicator.dart';
 import 'package:todo_app/core/widgets/mysnackbar.dart';
 import 'package:todo_app/core/widgets/mytextfield.dart';
 import 'package:todo_app/core/constants/app_assets.dart';
-import 'package:todo_app/core/theme/colors.dart';
+import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/utils/validators.dart';
 
 class SignUpPage extends StatefulWidget {
