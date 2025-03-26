@@ -8,4 +8,5 @@ class Appcolors {
   static const Color yellow = Color(0xFFFFA944);
   static const Color purple = Color(0xFF927BFB);
   static const Color pink = Color(0xFFF65A8A);
+  static const Color red = Color.fromARGB(255, 98, 7, 34);
 }

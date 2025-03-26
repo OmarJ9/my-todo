@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/features/splash/splash_screen.dart';
-import '../../features/auth/presentation/login_page.dart';
-import '../../features/auth/presentation/signup_page.dart';
-import '../../features/onboarding/presentation/onboarding.dart';
-import '../../features/task/presentation/addtask_screen.dart';
-import '../../features/task/presentation/my_homepage.dart';
-import '../../features/welcome/welcome_page.dart';
+import '../../data/models/task_model.dart';
+import '../../features/auth/presentation/screens/sign_in/sign_in_screen.dart';
+import '../../features/auth/presentation/screens/sign_up/sign_up_screen.dart';
+import '../../features/onboarding/onboarding_screen.dart';
+import '../../features/task/presentation/screens/task/task_screen.dart';
+import '../../features/task/presentation/screens/home/home_screen.dart';
+import '../../features/welcome/welcome_screen.dart';
 
 class RouteNames {
   static const String onboarding = "/onboarding";
@@ -37,12 +38,12 @@ class AppRouter {
       GoRoute(
         path: RouteNames.loginpage,
         name: RouteNames.loginpage,
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) => const SignInScreen(),
       ),
       GoRoute(
         path: RouteNames.signuppage,
         name: RouteNames.signuppage,
-        builder: (context, state) => const SignUpPage(),
+        builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
         path: RouteNames.homepage,
@@ -52,46 +53,11 @@ class AppRouter {
       GoRoute(
         path: RouteNames.addtaskpage,
         name: RouteNames.addtaskpage,
-        builder: (context, state) => const AddTaskScreen(),
+        builder: (context, state) {
+          final task = state.extra as TaskModel?;
+          return AddTaskScreen(task: task);
+        },
       ),
     ],
   );
 }
-// class AppRoute {
-//   Route? generateRoute(RouteSettings settings) {
-//     switch (settings.name) {
-//       case onboarding:
-//         {
-//           return MaterialPageRoute(builder: (_) => const OnboardingPage());
-//         }
-
-//       case welcomepage:
-//         {
-//           return MaterialPageRoute(builder: (_) => const WelcomePage());
-//         }
-
-//       case loginpage:
-//         {
-//           return MaterialPageRoute(builder: (_) => const LoginPage());
-//         }
-//       case signuppage:
-//         {
-//           return MaterialPageRoute(builder: (_) => const SignUpPage());
-//         }
-//       case homepage:
-//         {
-//           return MaterialPageRoute(builder: (_) => const MyHomePage());
-//         }
-//       case addtaskpage:
-//         {
-//           final task = settings.arguments as TaskModel?;
-//           return MaterialPageRoute(
-//               builder: (_) => AddTaskScreen(
-//                     task: task,
-//                   ));
-//         }
-//       default:
-//         throw 'No Page Found!!';
-//     }
-//   }
-// }
