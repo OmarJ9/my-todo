@@ -24,6 +24,12 @@ import 'package:todo_app/features/auth/data/repository/auth_repository.dart'
     as _i766;
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart'
     as _i862;
+import 'package:todo_app/features/task/data/data_sources/task_remote_data_source.dart'
+    as _i932;
+import 'package:todo_app/features/task/data/repository/task_repository.dart'
+    as _i711;
+import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart'
+    as _i580;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -45,8 +51,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1064.ApiService>(() => depedencyModule.apiService);
     gh.lazySingleton<_i505.IAuthRemoteDataSource>(
         () => depedencyModule.authRemoteDataSource);
+    gh.lazySingleton<_i932.ITaskRemoteDataSource>(
+        () => depedencyModule.taskRemoteDataSource);
     gh.lazySingleton<_i533.SecureStorageService>(
         () => const _i533.SecureStorageService());
+    gh.lazySingleton<_i711.ITaskRepository>(
+        () => _i711.TaskRepository(gh<_i932.ITaskRemoteDataSource>()));
     gh.lazySingleton<_i135.CacheService>(
         () => _i135.CacheService(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i819.IAuthLocalDataSource>(
@@ -54,6 +64,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i533.SecureStorageService>(),
               gh<_i135.CacheService>(),
             ));
+    gh.factory<_i580.TaskCubit>(
+        () => _i580.TaskCubit(gh<_i711.ITaskRepository>()));
     gh.lazySingleton<_i766.IAuthRepository>(() => _i766.AuthRepository(
           gh<_i505.IAuthRemoteDataSource>(),
           gh<_i819.IAuthLocalDataSource>(),

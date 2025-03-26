@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
@@ -25,14 +25,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   static var currentdate = DateTime.now();
 
-  final TextEditingController _usercontroller = TextEditingController(
-      text: FirebaseAuth.instance.currentUser!.displayName);
+  final TextEditingController _usercontroller =
+      TextEditingController(text: 'John Doe');
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  void _loadTasks() {
+    context.read<TaskCubit>().getTasks(
+          DateFormat('yyyy-MM-dd').format(currentdate),
+        );
+  }
 
   @override
   void dispose() {
-    super.dispose();
-
     _usercontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -88,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           currentdate = newdate;
                         });
+                        _loadTasks();
                       },
                     ),
                     AppSizes.gapH24,

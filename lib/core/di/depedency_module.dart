@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/core/network/api_service.dart';
 import 'package:todo_app/features/auth/data/data_sources/auth_remote_data_source.dart';
-
+import '../../features/task/data/data_sources/task_remote_data_source.dart';
 import '../network/dio_client.dart';
 
 @module
@@ -20,4 +20,7 @@ abstract class DepedencyModule {
 
   @lazySingleton
   IAuthRemoteDataSource get authRemoteDataSource => IAuthRemoteDataSource(dio);
+
+  @lazySingleton
+  ITaskRemoteDataSource get taskRemoteDataSource => ITaskRemoteDataSource(dio);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
@@ -21,6 +22,8 @@ class SignInScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthenticationSuccessState) {
             context.goNamed(RouteNames.homepage);
+          } else if (state is AuthenticationErrortate) {
+            Alerts.of(context).showError(state.error);
           }
         },
         builder: (context, state) {

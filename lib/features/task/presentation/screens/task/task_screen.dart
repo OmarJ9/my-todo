@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/data/models/task_model.dart';
-import 'package:todo_app/data/repositories/firestore_crud.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/task/data/models/task_model.dart';
+import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
@@ -60,50 +61,64 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Appcolors.white,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppSizes.gapH12,
-                _buildAppBar(context),
-                AppSizes.gapH32,
-                TaskFormSection(
-                  initialTitle: _title,
-                  initialNote: _note,
-                  initialDate: _date,
-                  initialStartTime: _startTime,
-                  initialEndTime: _endTime,
-                  initialReminder: _reminder,
-                  initialColorIndex: _colorIndex,
-                  onTitleChanged: (value) => _title = value,
-                  onNoteChanged: (value) => _note = value,
-                  onDateChanged: (value) => _date = value,
-                  onStartTimeChanged: (value) => _startTime = value,
-                  onEndTimeChanged: (value) => _endTime = value,
-                  onReminderChanged: (value) => _reminder = value,
-                  onColorChanged: (value) => _colorIndex = value,
-                ),
-                AppSizes.gapH24,
-                ColorPickerSection(
-                  selectedColorIndex: _colorIndex,
-                  onColorSelected: (value) => _colorIndex = value,
-                ),
-                AppSizes.gapH24,
-                ReminderSection(
-                  selectedReminder: _reminder,
-                  onReminderSelected: (value) => _reminder = value,
-                ),
-                AppSizes.gapH32,
-                AppButton(
-                  color: Colors.deepPurple,
-                  width: 1.sw,
-                  title: isEditMode ? 'Update Task' : 'Add Task',
-                  func: () => _handleSubmit(context),
-                ),
-              ],
+      body: BlocListener<TaskCubit, TaskState>(
+        listener: (context, state) {
+          if (state is TaskError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else if (state is TaskAdded || state is TaskUpdated) {
+            Navigator.pop(context);
+          }
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSizes.gapH12,
+                  _buildAppBar(context),
+                  AppSizes.gapH32,
+                  TaskFormSection(
+                    initialTitle: _title,
+                    initialNote: _note,
+                    initialDate: _date,
+                    initialStartTime: _startTime,
+                    initialEndTime: _endTime,
+                    initialReminder: _reminder,
+                    initialColorIndex: _colorIndex,
+                    onTitleChanged: (value) => _title = value,
+                    onNoteChanged: (value) => _note = value,
+                    onDateChanged: (value) => _date = value,
+                    onStartTimeChanged: (value) => _startTime = value,
+                    onEndTimeChanged: (value) => _endTime = value,
+                    onReminderChanged: (value) => _reminder = value,
+                    onColorChanged: (value) => _colorIndex = value,
+                  ),
+                  AppSizes.gapH24,
+                  ColorPickerSection(
+                    selectedColorIndex: _colorIndex,
+                    onColorSelected: (value) => _colorIndex = value,
+                  ),
+                  AppSizes.gapH24,
+                  ReminderSection(
+                    selectedReminder: _reminder,
+                    onReminderSelected: (value) => _reminder = value,
+                  ),
+                  AppSizes.gapH32,
+                  AppButton(
+                    color: Colors.deepPurple,
+                    width: 1.sw,
+                    title: isEditMode ? 'Update Task' : 'Add Task',
+                    func: () => _handleSubmit(context),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -150,21 +165,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
 
     if (isEditMode) {
-      FireStoreCrud().updateTask(
-        docid: widget.task!.id,
-        title: task.title,
-        note: task.note,
-        date: task.date,
-        starttime: task.starttime,
-        endtime: task.endtime,
-        reminder: task.reminder,
-        colorindex: task.colorindex,
-      );
+      context.read<TaskCubit>().updateTask(task);
     } else {
-      print(task);
-      FireStoreCrud().addTask(task: task);
+      context.read<TaskCubit>().addTask(task);
     }
-
-    Navigator.pop(context);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/data/repositories/firestore_crud.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import '../../../../../../core/constants/app_sizes.dart';
 
 class TaskWidget extends StatelessWidget {
@@ -27,7 +27,7 @@ class TaskWidget extends StatelessWidget {
     return Dismissible(
       key: Key(id),
       onDismissed: (direction) {
-        FireStoreCrud().deleteTask(docid: id);
+        context.read<TaskCubit>().deleteTask(id);
       },
       background: Container(
         padding: const EdgeInsets.all(10),

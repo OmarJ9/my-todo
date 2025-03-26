@@ -55,7 +55,7 @@ class AuthRepository implements IAuthRepository {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
-      return left(ServerFailure(errorMessage: "Quelque chose s'est mal passé"));
+      return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }
 
@@ -85,8 +85,7 @@ class AuthRepository implements IAuthRepository {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
-      return left(
-          ServerFailure(errorMessage: "Quelque chose s'est mal passer"));
+      return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }
 
@@ -96,7 +95,7 @@ class AuthRepository implements IAuthRepository {
       await _authRemoteDataSource.logOut();
       await _authLocalDataSource.deleteTokens();
     } catch (e) {
-      throw "Quelque chose s'est mal passer";
+      throw "Something went wrong";
     }
   }
 }

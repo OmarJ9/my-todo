@@ -1,21 +1,18 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
-import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/core/route/app_router.dart';
 import 'package:todo_app/core/theme/app_thems.dart';
-
-import 'features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  configureDependencies();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -37,6 +34,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => getIt<AuthenticationCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<TaskCubit>(),
             ),
           ],
           child: MaterialApp.router(

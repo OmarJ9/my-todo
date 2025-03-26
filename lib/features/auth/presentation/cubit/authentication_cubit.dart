@@ -14,13 +14,42 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> login({
     required String email,
     required String password,
-  }) async {}
+  }) async {
+    emit(AuthenticationLoadingState());
+    final result = await repo.login(
+      email: email.toLowerCase(),
+      password: password,
+    );
+    result.fold(
+      (failure) => emit(AuthenticationErrortate(failure.errorMessage)),
+      (success) => emit(AuthenticationSuccessState()),
+    );
+  }
 
   Future<void> register({
     required String username,
     required String email,
     required String password,
-  }) async {}
+  }) async {
+    emit(AuthenticationLoadingState());
+    final result = await repo.signup(
+      username: username,
+      email: email,
+      password: password,
+    );
+    result.fold(
+      (failure) => emit(AuthenticationErrortate(failure.errorMessage)),
+      (success) => emit(AuthenticationSuccessState()),
+    );
+  }
 
-  Future<void> signout() async {}
+  Future<void> signout() async {
+    emit(AuthenticationLoadingState());
+    try {
+      await repo.logOut();
+      emit(UnAuthenticationState());
+    } catch (e) {
+      emit(AuthenticationErrortate(e.toString()));
+    }
+  }
 }

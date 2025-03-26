@@ -50,7 +50,7 @@ class OnboardingNavigation extends StatelessWidget {
                     cubit.changeindex();
                   } else {
                     context.goNamed(RouteNames.welcomepage);
-                    cubit.savepref('seen');
+                    cubit.savepref();
                   }
                 },
               ),

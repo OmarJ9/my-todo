@@ -16,6 +16,7 @@ class DioClient {
       responseType: ResponseType.json,
       baseUrl: "http://localhost:3000/api/v1",
       contentType: 'application/json',
+      validateStatus: (status) => status! < 500,
     ),
   )..interceptors.add(
       InterceptorsWrapper(
@@ -43,7 +44,7 @@ class DioClient {
 
   static Future<String?> _getValidToken() async {
     final storage = getIt<SecureStorageService>();
-    final token = await storage.read(CacheKeys.accessToken);
+    final token = await storage.read('access_token');
 
     if (token != null && !JwtDecoder.isExpired(token)) {
       return token;
@@ -55,7 +56,7 @@ class DioClient {
   static Future<String?> _refreshToken() async {
     debugPrint('Refreshing token...');
     final storage = getIt<SecureStorageService>();
-    final refreshToken = await storage.read(CacheKeys.refreshToken);
+    final refreshToken = await storage.read('refresh_token');
 
     if (refreshToken == null || JwtDecoder.isExpired(refreshToken)) {
       await _logout();
@@ -81,7 +82,7 @@ class DioClient {
     debugPrint('ERROR[${err.response?.statusCode}] => ${err.message}');
 
     if (err.response?.statusCode == 401 &&
-        err.requestOptions.path != 'auth/refresh') {
+        !_isAuthRoute(err.requestOptions.path)) {
       final newToken = await _refreshToken();
       if (newToken != null) {
         err.requestOptions.headers['Authorization'] = 'Bearer $newToken';
@@ -98,17 +99,20 @@ class DioClient {
       String accessToken, String refreshToken) async {
     final storage = getIt<SecureStorageService>();
     await Future.wait([
-      storage.write(CacheKeys.accessToken, accessToken),
-      storage.write(CacheKeys.refreshToken, refreshToken),
+      storage.write('access_token', accessToken),
+      storage.write('refresh_token', refreshToken),
     ]);
   }
 
   static bool _isAuthRoute(String path) {
-    return path.contains('auth/login') || path.contains('auth/refresh');
+    return path.contains('auth/login') ||
+        path.contains('auth/register') ||
+        path.contains('auth/refresh-token');
   }
 
   static Future<void> _logout() async {
-    debugPrint('Logging out due to authentication failure');
+    debugPrint(
+        'Logging out due to authentication failure. here is the full login endpoint: ${_dio.options.baseUrl}/auth/login');
     await getIt<SecureStorageService>().deleteAll();
     getIt<CacheService>().setBool(CacheKeys.isLogged, false);
 

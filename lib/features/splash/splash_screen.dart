@@ -1,11 +1,10 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_app/core/constants/app_variables.dart';
+import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/core/route/app_router.dart';
+import 'package:todo_app/core/services/secure_storage_service.dart';
+import 'package:todo_app/core/services/shared_prefs_service.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 
@@ -33,16 +32,17 @@ class _SPlashScreenState extends State<SPlashScreen> {
 
   void _startDelay() {
     _timer = Timer(const Duration(seconds: 3), () async {
-      final isLoggedin = FirebaseAuth.instance.currentUser != null;
-      final prefs = await SharedPreferences.getInstance();
+      final token =
+          await getIt.get<SecureStorageService>().read(CacheKeys.refreshToken);
+      final isLogged = getIt.get<CacheService>().getBool(CacheKeys.isLogged);
 
-      final bool? seen = prefs.getBool('seen');
-      profileimagesindex = prefs.getInt('pIndex') ?? 0;
+      final onBoardDone =
+          getIt.get<CacheService>().getBool(CacheKeys.onBoardingDone);
 
-      if (isLoggedin) {
+      if (isLogged && token != null && token.isNotEmpty) {
         if (mounted) context.go(RouteNames.homepage);
       } else {
-        if (seen == true) {
+        if (onBoardDone) {
           if (mounted) context.go(RouteNames.welcomepage);
         } else {
           if (mounted) context.go(RouteNames.onboarding);

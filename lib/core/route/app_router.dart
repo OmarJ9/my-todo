@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/features/splash/splash_screen.dart';
-import '../../data/models/task_model.dart';
 import '../../features/auth/presentation/screens/sign_in/sign_in_screen.dart';
 import '../../features/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
+import '../../features/task/data/models/task_model.dart';
 import '../../features/task/presentation/screens/task/task_screen.dart';
 import '../../features/task/presentation/screens/home/home_screen.dart';
 import '../../features/welcome/welcome_screen.dart';
