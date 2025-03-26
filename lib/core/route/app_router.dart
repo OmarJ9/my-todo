@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/features/splash/splash_screen.dart';
 import '../../data/models/task_model.dart';
@@ -18,7 +19,10 @@ class RouteNames {
 }
 
 class AppRouter {
+  static final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
   GoRouter router = GoRouter(
+    navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
         path: "/",

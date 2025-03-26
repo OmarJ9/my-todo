@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/utils/validators.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -86,13 +84,7 @@ class _SignUpFormState extends State<SignUpForm> {
               width: 200.w,
               title: 'Sign Up',
               func: () {
-                if (formKey.currentState!.validate()) {
-                  context.read<AuthenticationCubit>().register(
-                        fullname: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                }
+                if (formKey.currentState!.validate()) {}
               },
             ),
           ),

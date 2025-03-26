@@ -98,9 +98,7 @@ class WelcomePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(200),
           border: Border.all(color: Colors.deepPurple, width: 2)),
       child: MaterialButton(
-        onPressed: () {
-          cubit.signinanonym();
-        },
+        onPressed: () {},
         child: Center(
           child: Text(
             'Login as Guest',

@@ -1,88 +1,26 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:todo_app/data/repositories/firebase_auth.dart';
-import 'package:todo_app/core/widgets/app_alerts.dart';
+import 'package:injectable/injectable.dart';
+import 'package:todo_app/features/auth/data/repository/auth_repository.dart';
 
 part 'authentication_state.dart';
 
+@injectable
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit() : super(AuthenticationInitial());
+  AuthenticationCubit(this.repo) : super(AuthenticationInitial());
 
-  FirebaseAuthRepo firebaseauthrepo = FirebaseAuthRepo();
+  final IAuthRepository repo;
 
-  login({required String email, required String password}) {
-    emit(AuthenticationLoadingState());
-    firebaseauthrepo.login(email: email, password: password).then((value) {
-      final user = FirebaseAuth.instance.currentUser;
-      user!.displayName == '' ? user.updateDisplayName('User') : null;
-      emit(AuthenticationSuccessState());
-    }).catchError((e) {
-      emit(AuthenticationErrortate(e.toString()));
-      emit(UnAuthenticationState());
-    });
-  }
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {}
 
-  googleSignIn() {
-    emit(AuthenticationLoadingState());
-    firebaseauthrepo.googleSignIn().then((value) {
-      emit(AuthenticationSuccessState());
-    }).catchError((e) {
-      emit(AuthenticationErrortate(e.toString()));
-      emit(UnAuthenticationState());
-    });
-  }
+  Future<void> register({
+    required String username,
+    required String email,
+    required String password,
+  }) async {}
 
-  register(
-      {required String fullname,
-      required String email,
-      required String password}) {
-    emit(AuthenticationLoadingState());
-    firebaseauthrepo
-        .register(fullname: fullname, email: email, password: password)
-        .then((value) {
-      emit(AuthenticationSuccessState());
-
-      final user = FirebaseAuth.instance.currentUser;
-      user!.updateDisplayName(fullname);
-    }).catchError((e) {
-      emit(AuthenticationErrortate(e.toString()));
-      emit(UnAuthenticationState());
-    });
-  }
-
-  signinanonym() {
-    emit(AuthenticationLoadingState());
-    firebaseauthrepo.signinanonym().then((value) {
-      emit(AuthenticationSuccessState());
-    });
-  }
-
-  signout() async {
-    await firebaseauthrepo.logout();
-    emit(UnAuthenticationState());
-  }
-
-  var count = 0;
-
-  void updateUserInfo(String txt, BuildContext context) {
-    count >= 2 ? count = 0 : null;
-    emit(UpdateProfileLoadingState());
-    var user = FirebaseAuth.instance.currentUser;
-    user!.updateDisplayName(txt).then((value) {
-      count++;
-      Future.delayed(const Duration(seconds: 2));
-      emit(UpdateProfileSuccessState());
-
-      // You need to click twice to update it
-      count == 2
-          ? Navigator.pop(context)
-          : Alerts.of(context).showError('Please Click Another Time !!');
-    }).catchError((e) {
-      emit(UpdateProfileErrorState());
-      Alerts.of(context).showError('Please Check Your Internet Connection!!');
-    });
-  }
+  Future<void> signout() async {}
 }

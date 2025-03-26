@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/core/route/app_router.dart';
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => OnboardingCubit(),
             ),
-            BlocProvider(create: (context) => AuthenticationCubit()),
+            BlocProvider(
+              create: (context) => getIt<AuthenticationCubit>(),
+            ),
           ],
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,

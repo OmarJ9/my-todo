@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/constants/app_assets.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
 
 class SocialSignUp extends StatelessWidget {
   const SocialSignUp({super.key});
@@ -16,9 +14,7 @@ class SocialSignUp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () {
-                context.read<AuthenticationCubit>().googleSignIn();
-              },
+              onTap: () {},
               child: Image.asset(
                 AppAssets.googleicon,
                 fit: BoxFit.cover,

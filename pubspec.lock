@@ -254,6 +254,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.7"
+  dartz:
+    dependency: "direct main"
+    description:
+      name: dartz
+      sha256: e6acf34ad2e31b1eb00948692468c30ab48ac8250e0f0df661e29f12dd252168
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.1"
   date_picker_timeline:
     dependency: "direct main"
     description:
@@ -294,6 +302,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "253a18bbd4851fecba42f7343a1df3a9a4c1d31a2c1b37e221086b4fa8c8dbc9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.8.0+1"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   equatable:
     dependency: "direct main"
     description:
@@ -416,6 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.3"
+  flutter_secure_storage:
+    dependency: "direct main"
+    description:
+      name: flutter_secure_storage
+      sha256: "9f3dd2ac3b6875b0fde5b04734789c3ef35ba3965c18e99dd564a7a2f8056df6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -426,8 +458,16 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      sha256: "44c19278dd9d89292cf46e97dc0c1e52ce03275f40a97c5a348e802a924bf40e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.7"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
@@ -587,13 +627,29 @@ packages:
     source: hosted
     version: "0.7.1"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
+  json_serializable:
+    dependency: "direct dev"
+    description:
+      name: json_serializable
+      sha256: c2fcb3920cf2b6ae6845954186420fca40bc0a8abcc84903b7801f17d7050d7c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.9.0"
+  jwt_decoder:
+    dependency: "direct main"
+    description:
+      name: jwt_decoder
+      sha256: "54774aebf83f2923b99e6416b4ea915d47af3bde56884eb622de85feabbc559f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -762,6 +818,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   provider:
     dependency: transitive
     description:
@@ -794,6 +858,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  retrofit:
+    dependency: "direct main"
+    description:
+      name: retrofit
+      sha256: c6cc9ad3374e6d07008343140a67afffaaa34cdf6bf08d4847d91417a99dcf45
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.2"
+  retrofit_generator:
+    dependency: "direct dev"
+    description:
+      name: retrofit_generator
+      sha256: f76fdb2b66854690d5a332e7364d7561fc9dc2b3c924d7956ab8070495e21f6a
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.1.5"
   rive:
     dependency: transitive
     description:
@@ -895,6 +975,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      sha256: "86d247119aedce8e63f4751bd9626fc9613255935558447569ad42f9f5b48b3c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.5"
   source_span:
     dependency: transitive
     description:
