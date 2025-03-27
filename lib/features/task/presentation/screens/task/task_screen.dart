@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/data/models/task_model.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
@@ -64,14 +66,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       body: BlocListener<TaskCubit, TaskState>(
         listener: (context, state) {
           if (state is TaskError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
-            );
+            Alerts.of(context).showError(state.message);
           } else if (state is TaskAdded || state is TaskUpdated) {
-            Navigator.pop(context);
+            context.pop();
           }
         },
         child: SingleChildScrollView(
@@ -144,12 +141,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   void _handleSubmit(BuildContext context) {
     if (_title.isEmpty || _note.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please fill in all fields'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      Alerts.of(context).showError('Please fill in all fields');
       return;
     }
 

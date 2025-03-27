@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/features/task/presentation/screens/home/widgets/task_widget.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
@@ -25,12 +26,7 @@ class TaskListSection extends StatelessWidget {
     return BlocConsumer<TaskCubit, TaskState>(
       listener: (context, state) {
         if (state is TaskError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+          Alerts.of(context).showError(state.message);
         }
       },
       builder: (context, state) {

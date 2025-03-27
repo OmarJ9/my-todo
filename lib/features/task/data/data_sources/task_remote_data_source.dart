@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../models/task_model.dart';
+import '../models/task_response_model.dart';
 
 part 'task_remote_data_source.g.dart';
 
@@ -10,8 +11,8 @@ abstract class ITaskRemoteDataSource {
       _ITaskRemoteDataSource;
 
   @GET("/tasks")
-  Future<List<TaskModel>> getTasks(
-    @Query('date') String date,
+  Future<TaskResponseModel> getTasks(
+    @Body() Map<String, dynamic> body,
   );
 
   @POST("/tasks")

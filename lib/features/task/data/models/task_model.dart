@@ -4,6 +4,7 @@ part 'task_model.g.dart';
 
 @JsonSerializable()
 class TaskModel {
+  @JsonKey(name: "_id")
   final String id;
   final String title;
   final String note;

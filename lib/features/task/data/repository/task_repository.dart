@@ -22,12 +22,18 @@ class TaskRepository implements ITaskRepository {
   @override
   Future<Either<Failure, List<TaskModel>>> getTasks(String date) async {
     try {
-      final tasks = await _taskRemoteDataSource.getTasks(date);
-      return right(tasks);
+      final response = await _taskRemoteDataSource.getTasks(
+        {
+          'date': date,
+        },
+      );
+      return right(response.tasks);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
+      print(e.toString());
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
+      print(e.toString());
       return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }
@@ -39,6 +45,7 @@ class TaskRepository implements ITaskRepository {
       return right(newTask);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
+      print(e.toString());
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
       return left(ServerFailure(errorMessage: "Something went wrong"));
