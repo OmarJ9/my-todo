@@ -4,7 +4,7 @@ import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
 
-class ColorPickerSection extends StatelessWidget {
+class ColorPickerSection extends StatefulWidget {
   final int selectedColorIndex;
   final Function(int) onColorSelected;
 
@@ -13,6 +13,19 @@ class ColorPickerSection extends StatelessWidget {
     required this.selectedColorIndex,
     required this.onColorSelected,
   });
+
+  @override
+  State<ColorPickerSection> createState() => _ColorPickerSectionState();
+}
+
+class _ColorPickerSectionState extends State<ColorPickerSection> {
+  int _selectedColorIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedColorIndex = widget.selectedColorIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +46,14 @@ class ColorPickerSection extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: InkWell(
-                  onTap: () => onColorSelected(index),
+                  onTap: () {
+                    setState(() => _selectedColorIndex = index);
+                    widget.onColorSelected(index);
+                  },
                   child: CircleAvatar(
                     radius: 20.r,
                     backgroundColor: colors[index],
-                    child: selectedColorIndex == index
+                    child: _selectedColorIndex == index
                         ? const Icon(
                             Icons.check,
                             color: Colors.white,

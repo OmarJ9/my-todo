@@ -43,12 +43,12 @@ class TaskListSection extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var task = tasks[index];
                     Widget taskcontainer = TaskWidget(
-                      id: task.id,
-                      color: colors[task.colorindex],
-                      title: task.title,
-                      starttime: task.starttime,
-                      endtime: task.endtime,
-                      note: task.note,
+                      id: task.id ?? '',
+                      color: colors[task.colorindex ?? 0],
+                      title: task.title ?? '',
+                      starttime: task.starttime ?? '',
+                      endtime: task.endtime ?? '',
+                      note: task.note ?? '',
                     );
                     return InkWell(
                       onTap: () => context.pushNamed(

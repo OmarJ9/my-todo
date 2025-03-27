@@ -26,7 +26,7 @@ class TaskCubit extends Cubit<TaskState> {
     final result = await _taskRepository.addTask(task);
     result.fold(
       (failure) => emit(TaskError(failure.errorMessage)),
-      (newTask) => emit(TaskAdded(newTask)),
+      (_) => emit(const TaskAdded()),
     );
   }
 
@@ -40,7 +40,6 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   Future<void> deleteTask(String id) async {
-    emit(TaskLoading());
     final result = await _taskRepository.deleteTask(id);
     result.fold(
       (failure) => emit(TaskError(failure.errorMessage)),

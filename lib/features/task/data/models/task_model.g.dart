@@ -7,14 +7,14 @@ part of 'task_model.dart';
 // **************************************************************************
 
 TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
-      id: json['_id'] as String,
-      title: json['title'] as String,
-      note: json['note'] as String,
-      date: json['date'] as String,
-      starttime: json['starttime'] as String,
-      endtime: json['endtime'] as String,
-      reminder: (json['reminder'] as num).toInt(),
-      colorindex: (json['colorindex'] as num).toInt(),
+      id: json['_id'] as String?,
+      title: json['title'] as String?,
+      note: json['note'] as String?,
+      date: json['date'] as String?,
+      starttime: json['starttime'] as String?,
+      endtime: json['endtime'] as String?,
+      reminder: (json['reminder'] as num?)?.toInt(),
+      colorindex: (json['colorindex'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{

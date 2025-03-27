@@ -21,12 +21,10 @@ class TaskLoaded extends TaskState {
 }
 
 class TaskAdded extends TaskState {
-  final TaskModel task;
-
-  const TaskAdded(this.task);
+  const TaskAdded();
 
   @override
-  List<Object?> get props => [task];
+  List<Object?> get props => [];
 }
 
 class TaskUpdated extends TaskState {

@@ -43,19 +43,19 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   void initState() {
     super.initState();
     if (isEditMode) {
-      _title = widget.task!.title;
-      _note = widget.task!.note;
-      _date = DateTime.parse(widget.task!.date);
+      _title = widget.task!.title ?? '';
+      _note = widget.task!.note ?? '';
+      _date = DateTime.parse(widget.task!.date ?? '');
       _startTime = TimeOfDay(
-        hour: int.parse(widget.task!.starttime.split(':')[0]),
-        minute: int.parse(widget.task!.starttime.split(':')[1]),
+        hour: int.parse(widget.task!.starttime?.split(':')[0] ?? '0'),
+        minute: int.parse(widget.task!.starttime?.split(':')[1] ?? '0'),
       );
       _endTime = TimeOfDay(
-        hour: int.parse(widget.task!.endtime.split(':')[0]),
-        minute: int.parse(widget.task!.endtime.split(':')[1]),
+        hour: int.parse(widget.task!.endtime?.split(':')[0] ?? '0'),
+        minute: int.parse(widget.task!.endtime?.split(':')[1] ?? '0'),
       );
-      _reminder = widget.task!.reminder;
-      _colorIndex = widget.task!.colorindex;
+      _reminder = widget.task!.reminder ?? 5;
+      _colorIndex = widget.task!.colorindex ?? 0;
     }
   }
 
@@ -68,6 +68,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           if (state is TaskError) {
             Alerts.of(context).showError(state.message);
           } else if (state is TaskAdded || state is TaskUpdated) {
+            context
+                .read<TaskCubit>()
+                .getTasks(DateFormat('yyyy-MM-dd').format(_date));
             context.pop();
           }
         },

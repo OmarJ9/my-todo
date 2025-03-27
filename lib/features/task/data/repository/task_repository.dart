@@ -8,7 +8,7 @@ import '../models/task_model.dart';
 
 abstract class ITaskRepository {
   Future<Either<Failure, List<TaskModel>>> getTasks(String date);
-  Future<Either<Failure, TaskModel>> addTask(TaskModel task);
+  Future<Either<Failure, bool>> addTask(TaskModel task);
   Future<Either<Failure, TaskModel>> updateTask(TaskModel task);
   Future<Either<Failure, void>> deleteTask(String id);
 }
@@ -30,22 +30,21 @@ class TaskRepository implements ITaskRepository {
       return right(response.tasks);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
-      print(e.toString());
+
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
-      print(e.toString());
       return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }
 
   @override
-  Future<Either<Failure, TaskModel>> addTask(TaskModel task) async {
+  Future<Either<Failure, bool>> addTask(TaskModel task) async {
     try {
-      final newTask = await _taskRemoteDataSource.addTask(task);
-      return right(newTask);
+      await _taskRemoteDataSource.addTask(task);
+      return right(true);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
-      print(e.toString());
+
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
       return left(ServerFailure(errorMessage: "Something went wrong"));
@@ -55,7 +54,10 @@ class TaskRepository implements ITaskRepository {
   @override
   Future<Either<Failure, TaskModel>> updateTask(TaskModel task) async {
     try {
-      final updatedTask = await _taskRemoteDataSource.updateTask(task.id, task);
+      final updatedTask = await _taskRemoteDataSource.updateTask(
+        task.id ?? '',
+        task,
+      );
       return right(updatedTask);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
