@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
-import 'package:todo_app/features/task/presentation/screens/home/widgets/task_widget.dart';
+import 'package:todo_app/features/task/presentation/screens/home/widgets/task_card.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
@@ -42,7 +42,7 @@ class TaskListSection extends StatelessWidget {
                   itemCount: tasks.length,
                   itemBuilder: (context, index) {
                     var task = tasks[index];
-                    Widget taskcontainer = TaskWidget(
+                    Widget taskcontainer = TaskCard(
                       id: task.id ?? '',
                       color: colors[task.colorindex ?? 0],
                       title: task.title ?? '',

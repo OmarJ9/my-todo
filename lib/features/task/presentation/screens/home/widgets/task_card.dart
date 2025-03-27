@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import '../../../../../../core/constants/app_sizes.dart';
 
-class TaskWidget extends StatelessWidget {
+class TaskCard extends StatelessWidget {
   final String id;
   final Color color;
   final String title;
@@ -12,7 +13,7 @@ class TaskWidget extends StatelessWidget {
   final String endtime;
   final String note;
 
-  const TaskWidget({
+  const TaskCard({
     super.key,
     required this.id,
     required this.color,
@@ -26,8 +27,14 @@ class TaskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: Key(id),
-      onDismissed: (direction) {
-        context.read<TaskCubit>().deleteTask(id);
+      onDismissed: (direction) async {
+        await context.read<TaskCubit>().deleteTask(id);
+        final date = DateTime.now();
+        if (context.mounted) {
+          context
+              .read<TaskCubit>()
+              .getTasks(DateFormat('yyyy-MM-dd').format(date));
+        }
       },
       background: Container(
         padding: const EdgeInsets.all(10),
