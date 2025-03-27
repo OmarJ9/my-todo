@@ -118,7 +118,7 @@ class DioClient {
 
     final context = AppRouter.rootNavigatorKey.currentContext;
     if (context != null && context.mounted) {
-      context.goNamed(RouteNames.welcomepage);
+      context.goNamed(RouteNames.loginpage);
     }
   }
 }

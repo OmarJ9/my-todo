@@ -7,6 +7,7 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/task/data/models/task_model.dart';
 import '../../features/task/presentation/screens/task/task_screen.dart';
 import '../../features/task/presentation/screens/home/home_screen.dart';
+import '../../features/settings/settings_screen.dart';
 import '../../features/welcome/welcome_screen.dart';
 
 class RouteNames {
@@ -16,6 +17,7 @@ class RouteNames {
   static const String signuppage = "/signup";
   static const String homepage = "/homepage";
   static const String addtaskpage = "/addtask";
+  static const String settingspage = "/settings";
 }
 
 class AppRouter {
@@ -61,6 +63,11 @@ class AppRouter {
           final task = state.extra as TaskModel?;
           return AddTaskScreen(task: task);
         },
+      ),
+      GoRoute(
+        path: RouteNames.settingspage,
+        name: RouteNames.settingspage,
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );
