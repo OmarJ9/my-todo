@@ -45,7 +45,7 @@ class _ColorPickerSectionState extends State<ColorPickerSection> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () {
                     setState(() => _selectedColorIndex = index);
                     widget.onColorSelected(index);
