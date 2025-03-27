@@ -66,6 +66,7 @@ class DioClient {
     try {
       final response =
           await getIt<ApiService>().refreshToken('Bearer $refreshToken');
+      print("response of refresh token: $response");
       await _updateTokens(response.accessToken, response.refreshToken);
       return response.accessToken;
     } catch (e) {

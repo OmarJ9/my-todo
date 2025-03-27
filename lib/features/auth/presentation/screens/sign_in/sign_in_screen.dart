@@ -18,6 +18,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationSuccessState) {
@@ -32,49 +33,70 @@ class SignInScreen extends StatelessWidget {
           }
 
           return SafeArea(
-            child: Padding(
-              padding: AppSizes.defaultPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome Back',
-                    style: AppTypography.bold24(),
-                  ),
-                  AppSizes.gapH12,
-                  Text(
-                    'Login to your account',
-                    style: AppTypography.medium14(),
-                  ),
-                  AppSizes.gapH24,
-                  SignInForm(),
-                  AppSizes.gapH24,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t Have An Account? ',
-                        style: AppTypography.medium14(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: AppSizes.defaultPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 32),
+                    Text(
+                      'Welcome Back',
+                      style: AppTypography.bold24().copyWith(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          context.pushNamed(RouteNames.signuppage);
+                    ),
+                    AppSizes.gapH12,
+                    Text(
+                      'Login to your account',
+                      style: AppTypography.medium14().copyWith(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    AppSizes.gapH32,
+                    SignInForm(),
+                    AppSizes.gapH24,
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          // Add forgot password functionality
                         },
                         child: Text(
-                          'Sign Up',
-                          style: AppTypography.medium14(
+                          'Forgot password?',
+                          style: AppTypography.medium14().copyWith(
                             color: Colors.deepPurple,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  AppSizes.gapH24,
-                  AuthDivider(),
-                  AppSizes.gapH24,
-                  SocialSignIn(),
-                  AppSizes.gapH24,
-                ],
+                    ),
+                    AppSizes.gapH12,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an account? ',
+                          style: AppTypography.medium14(),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.pushNamed(RouteNames.signuppage);
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: AppTypography.medium14(
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    AppSizes.gapH24,
+                    AuthDivider(),
+                    AppSizes.gapH24,
+                    SocialSignIn(),
+                  ],
+                ),
               ),
             ),
           );

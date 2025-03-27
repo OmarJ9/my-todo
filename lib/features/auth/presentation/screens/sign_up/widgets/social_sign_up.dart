@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/core/constants/app_assets.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:todo_app/core/constants/app_sizes.dart';
+import 'package:todo_app/core/theme/app_styles.dart';
 
 class SocialSignUp extends StatelessWidget {
   const SocialSignUp({super.key});
@@ -10,40 +10,61 @@ class SocialSignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Image.asset(
-                AppAssets.googleicon,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 40.w),
-            InkWell(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'It will be added soon!!',
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            fontSize: 11.sp,
-                            color: Appcolors.white,
-                          ),
-                    ),
-                    backgroundColor: Colors.deepPurple,
-                  ),
-                );
-              },
-              child: Image.asset(
-                AppAssets.facebookicon,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
+        _buildSocialButton(
+          context: context,
+          icon: Brands.google,
+          label: 'Continue with Google',
+          onPressed: () {},
+          color: Colors.deepPurple,
+        ),
+        AppSizes.gapH16,
+        _buildSocialButton(
+          context: context,
+          icon: Brands.apple_logo,
+          label: 'Continue with Apple',
+          onPressed: () {},
+          isDark: true,
         ),
       ],
+    );
+  }
+
+  Widget _buildSocialButton({
+    required BuildContext context,
+    required String icon,
+    required String label,
+    required VoidCallback onPressed,
+    bool isDark = false,
+    Color? color,
+  }) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        backgroundColor: isDark ? Colors.black : Colors.white,
+        side: BorderSide(
+          color: isDark ? Colors.transparent : Colors.grey.shade300,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Brand(
+            icon,
+            size: 24,
+          ),
+          const SizedBox(width: 12),
+          Text(
+            label,
+            style: AppTypography.medium16().copyWith(
+              color: isDark ? Colors.white : Colors.black87,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

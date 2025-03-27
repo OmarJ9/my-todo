@@ -5,7 +5,6 @@ import 'package:todo_app/core/route/app_router.dart';
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/features/auth/presentation/screens/sign_up/widgets/sign_up_form.dart';
 import 'package:todo_app/features/auth/presentation/screens/sign_up/widgets/social_sign_up.dart';
 import 'package:todo_app/features/auth/presentation/widgets/auth_divider.dart';
@@ -19,17 +18,17 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Appcolors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Appcolors.white,
+        backgroundColor: Colors.white,
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Icon(
+        leading: IconButton(
+          icon: const Icon(
             Icons.arrow_back,
-            color: Appcolors.black,
-            size: 30,
+            color: Colors.black87,
+            size: 24,
           ),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: BlocConsumer<AuthenticationCubit, AuthenticationState>(
@@ -46,32 +45,37 @@ class SignUpScreen extends StatelessWidget {
           if (state is AuthenticationLoadingState) {
             return const AppCircularIndicator();
           }
+
           return SafeArea(
             child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+                padding: AppSizes.defaultPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 32),
                     Text(
-                      'New Account ?',
-                      style: AppTypography.bold24(),
+                      'Create Account',
+                      style: AppTypography.bold24().copyWith(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     AppSizes.gapH12,
                     Text(
-                      'Create your account',
-                      style: AppTypography.medium14(),
+                      'Fill in your details to get started',
+                      style: AppTypography.medium14().copyWith(
+                        color: Colors.grey[600],
+                      ),
                     ),
-                    AppSizes.gapH24,
+                    AppSizes.gapH32,
                     SignUpForm(),
                     AppSizes.gapH24,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Already have an Account? ',
+                          'Already have an account? ',
                           style: AppTypography.medium14(),
                         ),
                         InkWell(
