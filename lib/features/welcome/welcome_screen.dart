@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/constants/app_assets.dart';
 import 'package:todo_app/core/theme/app_styles.dart';

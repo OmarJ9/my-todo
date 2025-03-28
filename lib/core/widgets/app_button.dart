@@ -8,13 +8,13 @@ class AppButton extends StatelessWidget {
     required this.color,
     required this.width,
     required this.title,
-    required this.onClick,
+    this.onClick,
   });
 
   final Color color;
   final double width;
   final String title;
-  final Function() onClick;
+  final Function()? onClick;
 
   @override
   Widget build(BuildContext context) {

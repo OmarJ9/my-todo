@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../models/user_model.dart';
+import '../../../../core/models/user_model.dart';
 
 part 'profile_remote_data_source.g.dart';
 

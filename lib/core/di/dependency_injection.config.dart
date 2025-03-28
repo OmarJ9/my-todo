@@ -22,7 +22,7 @@ import 'package:todo_app/features/auth/data/data_sources/auth_remote_data_source
     as _i505;
 import 'package:todo_app/features/auth/data/repository/auth_repository.dart'
     as _i766;
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart'
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart'
     as _i862;
 import 'package:todo_app/features/profile/data/data_sources/profile_remote_data_source.dart'
     as _i470;

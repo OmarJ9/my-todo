@@ -22,13 +22,13 @@ class _IAuthRemoteDataSource implements IAuthRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<TokenModel> login(LoginRequestBody loginRequestBody) async {
+  Future<AuthResponseModel> login(LoginRequestBody loginRequestBody) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(loginRequestBody.toJson());
-    final _options = _setStreamType<TokenModel>(Options(
+    final _options = _setStreamType<AuthResponseModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -45,9 +45,9 @@ class _IAuthRemoteDataSource implements IAuthRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TokenModel _value;
+    late AuthResponseModel _value;
     try {
-      _value = TokenModel.fromJson(_result.data!);
+      _value = AuthResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -56,13 +56,13 @@ class _IAuthRemoteDataSource implements IAuthRemoteDataSource {
   }
 
   @override
-  Future<TokenModel> signup(SignUpRequestBody signupRequestBody) async {
+  Future<AuthResponseModel> signup(SignUpRequestBody signupRequestBody) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(signupRequestBody.toJson());
-    final _options = _setStreamType<TokenModel>(Options(
+    final _options = _setStreamType<AuthResponseModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -79,9 +79,9 @@ class _IAuthRemoteDataSource implements IAuthRemoteDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TokenModel _value;
+    late AuthResponseModel _value;
     try {
-      _value = TokenModel.fromJson(_result.data!);
+      _value = AuthResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

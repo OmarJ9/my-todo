@@ -3,8 +3,8 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 
-class SocialSignIn extends StatelessWidget {
-  const SocialSignIn({super.key});
+class AuthOauthSection extends StatelessWidget {
+  const AuthOauthSection({super.key});
 
   @override
   Widget build(BuildContext context) {

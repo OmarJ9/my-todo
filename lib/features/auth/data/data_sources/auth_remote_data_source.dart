@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../models/login_request_model.dart';
 import '../models/sign_up_request_model.dart';
-import '../models/token_model.dart';
+import '../models/auth_response_model.dart';
 
 part 'auth_remote_data_source.g.dart';
 
@@ -12,12 +12,12 @@ abstract class IAuthRemoteDataSource {
       _IAuthRemoteDataSource;
 
   @POST("/auth/login")
-  Future<TokenModel> login(
+  Future<AuthResponseModel> login(
     @Body() LoginRequestBody loginRequestBody,
   );
 
   @POST("/auth/register")
-  Future<TokenModel> signup(
+  Future<AuthResponseModel> signup(
     @Body() SignUpRequestBody signupRequestBody,
   );
 

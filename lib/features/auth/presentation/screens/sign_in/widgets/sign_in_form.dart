@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
+import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+
+import '../../../../blocs/login_form/login_form_cubit.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -16,14 +20,12 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
-  late final GlobalKey<FormState> formKey;
 
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -35,45 +37,88 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        children: [
-          AppTextfield(
-            hint: 'Email',
-            icon: Icons.email,
-            showicon: true,
-            validator: (value) {
-              return value!.isEmpty ? "Please Enter Your Email" : null;
-            },
-            textEditingController: emailController,
-          ),
-          AppSizes.gapH24,
-          AppTextfield(
-            hint: 'Password',
-            icon: Icons.lock,
-            showicon: true,
-            validator: (value) {
-              return value!.isEmpty ? "Please Enter Your Password" : null;
-            },
-            textEditingController: passwordController,
-          ),
-          AppSizes.gapH48,
-          AppButton(
-            color: Colors.deepPurple,
-            width: 1.sw,
-            title: 'Sign In',
-            onClick: () {
-              if (formKey.currentState!.validate()) {
-                context.read<AuthenticationCubit>().login(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-              }
-            },
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        _EmailField(),
+        AppSizes.gapH24,
+        _PasswordField(),
+        AppSizes.gapH48,
+        _SignInButton(),
+      ],
+    );
+  }
+}
+
+class _EmailField extends StatelessWidget {
+  const _EmailField();
+
+  @override
+  Widget build(BuildContext context) {
+    final error = context
+        .select((LoginFormCubit cubit) => cubit.state.email.displayError);
+    return AppTextfield(
+      hint: 'Enter Your Email',
+      keyboardType: TextInputType.emailAddress,
+      onChange: (value) {
+        context.read<LoginFormCubit>().emailChanged(value);
+      },
+      errorText: error != null ? "Enter a valid email" : null,
+    );
+  }
+}
+
+class _PasswordField extends StatelessWidget {
+  const _PasswordField();
+
+  @override
+  Widget build(BuildContext context) {
+    final error = context
+        .select((LoginFormCubit cubit) => cubit.state.password.displayError);
+    return BlocBuilder<LoginFormCubit, LoginState>(
+      builder: (context, state) {
+        return AppTextfield(
+          hint: 'Enter Your Password',
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: state.isObscure,
+          suffixIcon: state.isObscure ? Icons.visibility_off : Icons.visibility,
+          onSuffixIconTap: () {
+            context.read<LoginFormCubit>().changeObscurity();
+          },
+          onChange: (value) {
+            context.read<LoginFormCubit>().passwordChanged(value);
+          },
+          errorText:
+              error != null ? "Password must be at least 8 characters" : null,
+        );
+      },
+    );
+  }
+}
+
+class _SignInButton extends StatelessWidget {
+  const _SignInButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<LoginFormCubit, LoginState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final isLoading = state.status == FormzSubmissionStatus.inProgress;
+        final isEnabled = state.isValid;
+        if (isLoading) {
+          return AppCircularIndicator();
+        }
+        return AppButton(
+          color: context.theme.primaryColor,
+          width: 1.sw,
+          title: 'Sign In',
+          onClick: isEnabled
+              ? () {
+                  context.read<LoginFormCubit>().login();
+                }
+              : null,
+        );
+      },
     );
   }
 }

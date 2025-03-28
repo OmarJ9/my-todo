@@ -70,7 +70,6 @@ class ProfileSection extends StatelessWidget {
         AppSizes.gapH8,
         AppTextfield(
           hint: 'Enter your username',
-          icon: Icons.person,
           validator: (value) => value!.isEmpty ? 'Username is required' : null,
           textEditingController: usernameController,
         ),

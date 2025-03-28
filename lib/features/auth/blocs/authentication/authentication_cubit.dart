@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todo_app/features/auth/data/repository/auth_repository.dart';
 
+import '../../../../core/models/user_model.dart';
+
 part 'authentication_state.dart';
 
 @injectable
@@ -17,7 +19,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }) async {
     emit(AuthenticationLoadingState());
     final result = await repo.login(
-      email: email.toLowerCase(),
+      email: email,
       password: password,
     );
     result.fold(
@@ -39,7 +41,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
     result.fold(
       (failure) => emit(AuthenticationErrortate(failure.errorMessage)),
-      (success) => emit(AuthenticationSuccessState()),
+      (user) => emit(AuthenticationSuccessState(user: user)),
     );
   }
 

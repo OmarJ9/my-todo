@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../data/models/user_model.dart';
+import '../../../../core/models/user_model.dart';
 import '../../data/repository/profile_repository.dart';
 
 part 'profile_state.dart';

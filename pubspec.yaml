@@ -55,6 +55,7 @@ dependencies:
   hydrated_bloc: ^10.0.0
   path_provider: ^2.1.5
   awesome_snackbar_content: ^0.1.5
+  formz: ^0.8.0
 
 dev_dependencies:
   build_runner: ^2.4.13

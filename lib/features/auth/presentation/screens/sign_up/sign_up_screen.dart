@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/route/app_router.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/auth/presentation/screens/sign_up/widgets/sign_up_form.dart';
-import 'package:todo_app/features/auth/presentation/screens/sign_up/widgets/social_sign_up.dart';
 import 'package:todo_app/features/auth/presentation/widgets/auth_divider.dart';
 
 import '../../../../../core/constants/app_sizes.dart';
 import '../../../../../core/theme/app_styles.dart';
+import '../../widgets/auth_oauth_section.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -92,7 +92,7 @@ class SignUpScreen extends StatelessWidget {
                     AppSizes.gapH24,
                     AuthDivider(),
                     AppSizes.gapH24,
-                    SocialSignUp(),
+                    const AuthOauthSection(),
                   ],
                 ),
               ),

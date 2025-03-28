@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:todo_app/core/errors/failure.dart';
 import 'package:todo_app/core/network/dio_exception.dart';
 import '../data_sources/profile_remote_data_source.dart';
-import '../models/user_model.dart';
+import '../../../../core/models/user_model.dart';
 
 abstract class IProfileRepository {
   Future<Either<Failure, UserModel>> getProfile();

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
 
 class ButtonsSection extends StatelessWidget {
   final VoidCallback onSaveChanges;

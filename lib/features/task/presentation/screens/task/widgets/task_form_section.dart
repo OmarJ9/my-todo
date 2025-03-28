@@ -107,13 +107,11 @@ class _TaskFormSectionState extends State<TaskFormSection> {
           AppSizes.gapH12,
           AppTextfield(
             hint: 'Enter Title',
-            icon: Icons.title,
-            showicon: false,
             validator: (value) {
               return value!.isEmpty ? "Please Enter A Title" : null;
             },
             textEditingController: _titlecontroller,
-            onChanged: widget.onTitleChanged,
+            onChange: widget.onTitleChanged,
           ),
           AppSizes.gapH24,
           Text(
@@ -123,14 +121,11 @@ class _TaskFormSectionState extends State<TaskFormSection> {
           AppSizes.gapH12,
           AppTextfield(
             hint: 'Enter Note',
-            icon: Icons.ac_unit,
-            showicon: false,
-            maxlenght: 40,
             validator: (value) {
               return value!.isEmpty ? "Please Enter A Note" : null;
             },
             textEditingController: _notecontroller,
-            onChanged: widget.onNoteChanged,
+            onChange: widget.onNoteChanged,
           ),
           Text(
             'Date',
@@ -139,11 +134,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
           AppSizes.gapH12,
           AppTextfield(
             hint: DateFormat('dd/MM/yyyy').format(currentdate),
-            icon: Icons.calendar_today,
-            readonly: true,
-            showicon: false,
             validator: (value) => null,
-            ontap: () => _showDatePicker(),
+            onTap: () => _showDatePicker(),
             textEditingController: TextEditingController(),
           ),
           AppSizes.gapH24,
@@ -162,11 +154,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
                       hint: DateFormat('HH:mm a').format(
                         DateTime(0, 0, 0, _starthour.hour, _starthour.minute),
                       ),
-                      icon: Icons.watch_outlined,
-                      showicon: false,
-                      readonly: true,
                       validator: (value) => null,
-                      ontap: () => _showStartTimePicker(),
+                      onTap: () => _showStartTimePicker(),
                       textEditingController: TextEditingController(),
                     ),
                   ],
@@ -186,11 +175,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
                       hint: DateFormat('HH:mm a').format(
                         DateTime(0, 0, 0, endhour.hour, endhour.minute),
                       ),
-                      icon: Icons.watch,
-                      showicon: false,
-                      readonly: true,
                       validator: (value) => null,
-                      ontap: () => _showEndTimePicker(),
+                      onTap: () => _showEndTimePicker(),
                       textEditingController: TextEditingController(),
                     ),
                   ],

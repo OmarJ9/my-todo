@@ -4,9 +4,9 @@ import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
 import 'package:todo_app/features/auth/presentation/screens/sign_in/widgets/sign_in_form.dart';
-import 'package:todo_app/features/auth/presentation/screens/sign_in/widgets/social_sign_in.dart';
+import 'package:todo_app/features/auth/presentation/widgets/auth_oauth_section.dart';
 import 'package:todo_app/core/route/app_router.dart';
 import 'package:go_router/go_router.dart';
 
@@ -94,7 +94,7 @@ class SignInScreen extends StatelessWidget {
                     AppSizes.gapH24,
                     AuthDivider(),
                     AppSizes.gapH24,
-                    SocialSignIn(),
+                    const AuthOauthSection(),
                   ],
                 ),
               ),

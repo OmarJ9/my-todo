@@ -22,13 +22,13 @@ class _ApiService implements ApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<TokenModel> refreshToken(String refreshToken) async {
+  Future<AuthResponseModel> refreshToken(String refreshToken) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': refreshToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<TokenModel>(Options(
+    final _options = _setStreamType<AuthResponseModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -45,9 +45,9 @@ class _ApiService implements ApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TokenModel _value;
+    late AuthResponseModel _value;
     try {
-      _value = TokenModel.fromJson(_result.data!);
+      _value = AuthResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/utils/validators.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dart';
+
+import '../../../../../../core/widgets/app_circular_indicator.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -17,87 +20,114 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  late final TextEditingController nameController;
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
-  late final GlobalKey<FormState> formKey;
-
   @override
-  void initState() {
-    super.initState();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    formKey = GlobalKey<FormState>();
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _UsernameField(),
+        AppSizes.gapH12,
+        _EmailField(),
+        AppSizes.gapH12,
+        _PasswordField(),
+        AppSizes.gapH12,
+        AppSizes.gapH48,
+        _SignUpButton(),
+      ],
+    );
   }
+}
 
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
+class _UsernameField extends StatelessWidget {
+  const _UsernameField();
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextfield(
-            hint: 'Full Name',
-            icon: Icons.person,
-            keyboardtype: TextInputType.name,
-            validator: (value) {
-              return value!.length < 3 ? 'Invalid Name' : null;
-            },
-            textEditingController: nameController,
-          ),
-          AppSizes.gapH12,
-          AppTextfield(
-            hint: 'Email Address',
-            icon: Icons.email,
-            keyboardtype: TextInputType.emailAddress,
-            validator: (value) {
-              return !Validators.isValidEmail(value!)
-                  ? 'Enter a valid email'
-                  : null;
-            },
-            textEditingController: emailController,
-          ),
-          AppSizes.gapH12,
-          AppTextfield(
-            hint: 'Password',
-            icon: Icons.password,
-            obscure: true,
-            keyboardtype: TextInputType.text,
-            validator: (value) {
-              return value!.length < 6 ? "Enter min. 6 characters" : null;
-            },
-            textEditingController: passwordController,
-          ),
-          AppSizes.gapH48,
-          Align(
-            alignment: Alignment.center,
-            child: AppButton(
-              color: Colors.deepPurple,
-              width: 200.w,
-              title: 'Sign Up',
-              onClick: () {
-                if (formKey.currentState!.validate()) {
-                  context.read<AuthenticationCubit>().register(
-                        username: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
+    final error = context
+        .select((SignUpFormCubit cubit) => cubit.state.username.displayError);
+    return AppTextfield(
+      hint: 'Enter Your Username',
+      keyboardType: TextInputType.name,
+      onChange: (value) {
+        context.read<SignUpFormCubit>().usernameChanged(value);
+      },
+      errorText:
+          error != null ? "Username must be at least 3 characters" : null,
+    );
+  }
+}
+
+class _EmailField extends StatelessWidget {
+  const _EmailField();
+
+  @override
+  Widget build(BuildContext context) {
+    final error = context
+        .select((SignUpFormCubit cubit) => cubit.state.email.displayError);
+    return AppTextfield(
+      hint: 'Enter Your Email',
+      keyboardType: TextInputType.emailAddress,
+      onChange: (value) {
+        context.read<SignUpFormCubit>().emailChanged(value);
+      },
+      errorText: error != null ? "Enter a valid email" : null,
+    );
+  }
+}
+
+class _PasswordField extends StatelessWidget {
+  const _PasswordField();
+
+  @override
+  Widget build(BuildContext context) {
+    final error = context
+        .select((SignUpFormCubit cubit) => cubit.state.password.displayError);
+    return BlocBuilder<SignUpFormCubit, SignUpState>(
+      builder: (context, state) {
+        return AppTextfield(
+          hint: 'Enter Your Password',
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: state.isPasswordObscure,
+          suffixIcon:
+              state.isPasswordObscure ? Icons.visibility_off : Icons.visibility,
+          onSuffixIconTap: () {
+            context.read<SignUpFormCubit>().changePasswordObscurity();
+          },
+          onChange: (value) {
+            context.read<SignUpFormCubit>().passwordChanged(value);
+          },
+          errorText:
+              error != null ? "Password must be at least 8 characters" : null,
+        );
+      },
+    );
+  }
+}
+
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SignUpFormCubit, SignUpState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final isLoading = state.status == FormzSubmissionStatus.inProgress;
+        final isEnabled = state.isValid;
+        if (isLoading) {
+          return AppCircularIndicator();
+        }
+        return AppButton(
+          color: context.theme.primaryColor,
+          width: 1.sw,
+          title: 'Sign Up',
+          onClick: isEnabled
+              ? () {
+                  context.read<SignUpFormCubit>().signup();
                 }
-              },
-            ),
-          ),
-        ],
-      ),
+              : null,
+        );
+      },
     );
   }
 }

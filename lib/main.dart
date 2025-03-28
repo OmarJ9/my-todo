@@ -7,11 +7,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:todo_app/core/route/app_router.dart';
-import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
+import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/features/profile/presentation/cubit/profile_cubit.dart';
 
 import 'core/theme/theme_cubit.dart';
+import 'features/auth/blocs/login_form/login_form_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? child) {
+        // For bigger apps, you should not define them globally. Since this is a small app, I'm defining them globally.
         return MultiBlocProvider(
           providers: [
             BlocProvider(
@@ -55,6 +58,12 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => ThemeCubit(),
+            ),
+            BlocProvider(
+              create: (context) => LoginFormCubit(),
+            ),
+            BlocProvider(
+              create: (context) => SignUpFormCubit(),
             ),
           ],
           child: BlocBuilder<ThemeCubit, ThemeData>(
