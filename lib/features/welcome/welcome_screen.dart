@@ -46,7 +46,7 @@ class WelcomePage extends StatelessWidget {
                         style: AppTypography.bold32().copyWith(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
-                          color: Colors.deepPurple,
+                          color: context.theme.primaryColor,
                         ),
                       ),
                     ),
@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    AppSizes.gapH32,
+                    AppSizes.gapH48,
                     FadeInUp(
                       duration: const Duration(milliseconds: 800),
                       delay: const Duration(milliseconds: 500),
@@ -78,7 +78,7 @@ class WelcomePage extends StatelessWidget {
                         height: 50,
                       ),
                     ),
-                    AppSizes.gapH16,
+                    AppSizes.gapH24,
                     FadeInUp(
                       duration: const Duration(milliseconds: 800),
                       delay: const Duration(milliseconds: 600),

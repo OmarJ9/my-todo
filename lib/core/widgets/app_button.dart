@@ -36,9 +36,7 @@ class AppButton extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(vertical: 10.h),
         minimumSize: Size(width, height),
-        shadowColor: isOutlined
-            ? Colors.transparent
-            : Colors.deepPurple.withOpacity(0.4),
+        shadowColor: isOutlined ? Colors.transparent : color.withOpacity(0.4),
       ),
       child: Text(
         title,
