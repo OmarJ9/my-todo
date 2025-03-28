@@ -54,6 +54,7 @@ dependencies:
   icons_plus: ^5.0.0
   hydrated_bloc: ^10.0.0
   path_provider: ^2.1.5
+  awesome_snackbar_content: ^0.1.5
 
 dev_dependencies:
   build_runner: ^2.4.13
