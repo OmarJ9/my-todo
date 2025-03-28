@@ -11,4 +11,6 @@ const List<String> profileimages = [
   AppAssets.profileicon4,
 ];
 
+// Global variable for profile image index, used across the app
+// This is set by the ProfileCubit when the profile is loaded/updated
 int profileimagesindex = 0;

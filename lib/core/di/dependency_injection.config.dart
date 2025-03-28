@@ -24,6 +24,12 @@ import 'package:todo_app/features/auth/data/repository/auth_repository.dart'
     as _i766;
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart'
     as _i862;
+import 'package:todo_app/features/profile/data/data_sources/profile_remote_data_source.dart'
+    as _i470;
+import 'package:todo_app/features/profile/data/repository/profile_repository.dart'
+    as _i628;
+import 'package:todo_app/features/profile/presentation/cubit/profile_cubit.dart'
+    as _i714;
 import 'package:todo_app/features/task/data/data_sources/task_remote_data_source.dart'
     as _i932;
 import 'package:todo_app/features/task/data/repository/task_repository.dart'
@@ -53,12 +59,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => depedencyModule.authRemoteDataSource);
     gh.lazySingleton<_i932.ITaskRemoteDataSource>(
         () => depedencyModule.taskRemoteDataSource);
+    gh.lazySingleton<_i470.IProfileRemoteDataSource>(
+        () => depedencyModule.profileRemoteDataSource);
     gh.lazySingleton<_i533.SecureStorageService>(
         () => const _i533.SecureStorageService());
     gh.lazySingleton<_i711.ITaskRepository>(
         () => _i711.TaskRepository(gh<_i932.ITaskRemoteDataSource>()));
     gh.lazySingleton<_i135.CacheService>(
         () => _i135.CacheService(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i628.IProfileRepository>(
+        () => _i628.ProfileRepository(gh<_i470.IProfileRemoteDataSource>()));
     gh.lazySingleton<_i819.IAuthLocalDataSource>(
         () => _i819.AuthLocalDataSource(
               gh<_i533.SecureStorageService>(),
@@ -66,6 +76,8 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i580.TaskCubit>(
         () => _i580.TaskCubit(gh<_i711.ITaskRepository>()));
+    gh.factory<_i714.ProfileCubit>(
+        () => _i714.ProfileCubit(gh<_i628.IProfileRepository>()));
     gh.lazySingleton<_i766.IAuthRepository>(() => _i766.AuthRepository(
           gh<_i505.IAuthRemoteDataSource>(),
           gh<_i819.IAuthLocalDataSource>(),

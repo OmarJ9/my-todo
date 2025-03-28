@@ -7,7 +7,7 @@ import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/task/data/models/task_model.dart';
 import '../../features/task/presentation/screens/task/task_screen.dart';
 import '../../features/task/presentation/screens/home/home_screen.dart';
-import '../../features/settings/settings_screen.dart';
+import '../../features/profile/presentation/settings_screen.dart';
 import '../../features/welcome/welcome_screen.dart';
 
 class RouteNames {

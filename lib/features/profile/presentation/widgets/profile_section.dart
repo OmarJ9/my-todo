@@ -8,11 +8,13 @@ import 'package:todo_app/core/theme/app_styles.dart';
 class ProfileSection extends StatelessWidget {
   final int selectedProfileImage;
   final Function(int) onProfileImageSelected;
+  final TextEditingController usernameController;
 
   const ProfileSection({
     super.key,
     required this.selectedProfileImage,
     required this.onProfileImageSelected,
+    required this.usernameController,
   });
 
   @override
@@ -52,6 +54,28 @@ class ProfileSection extends StatelessWidget {
                     AppTypography.medium16().copyWith(color: Appcolors.purple),
               ),
             ],
+          ),
+        ),
+        AppSizes.gapH32,
+
+        // Username field
+        Text(
+          'Username',
+          style: AppTypography.bold16(),
+        ),
+        AppSizes.gapH8,
+        TextField(
+          controller: usernameController,
+          decoration: InputDecoration(
+            hintText: 'Enter your username',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Appcolors.purple),
+            ),
           ),
         ),
         AppSizes.gapH32,

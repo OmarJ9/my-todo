@@ -9,7 +9,7 @@ import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/features/task/presentation/screens/home/widgets/profile_section.dart';
+import 'package:todo_app/features/profile/presentation/profile_header.dart';
 import 'package:todo_app/features/task/presentation/screens/home/widgets/date_picker_section.dart';
 import 'package:todo_app/features/task/presentation/screens/home/widgets/task_list_section.dart';
 
