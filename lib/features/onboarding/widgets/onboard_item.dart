@@ -18,14 +18,14 @@ class OnBoardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AppSizes.gapH48,
           SizedBox(
-            height: 200.h,
+            height: 300.h,
             child: Image.asset(
               image,
               fit: BoxFit.cover,
@@ -40,9 +40,13 @@ class OnBoardItem extends StatelessWidget {
           AppSizes.gapH24,
           Text(
             description,
-            maxLines: 3,
+            maxLines: 6,
             textAlign: TextAlign.center,
-            style: AppTypography.medium16(),
+            style: AppTypography.medium16(
+              color: Colors.grey.shade600,
+            ).copyWith(
+              height: 1.5,
+            ),
           ),
         ],
       ),

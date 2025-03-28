@@ -27,25 +27,29 @@ class OnboardingContent extends StatelessWidget {
         child: Stack(
           children: [
             PageView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               controller: pageController,
               children: [
                 OnBoardItem(
                   image: AppAssets.onboradingone,
                   title: 'Manage Your Task',
                   description:
-                      'With This Small App You Can Orgnize All Your Tasks and Duties In A One Single App.',
+                      'Stay organized and boost your productivity with this all-in-one task management app. '
+                      'Easily create, edit, and track your to-dos, ensuring that no important task slips through the cracks.',
                 ),
                 OnBoardItem(
                   image: AppAssets.onboradingtwo,
-                  title: 'Plan Your Day',
-                  description: 'Add A Task And The App Will Remind You.',
+                  title: 'Plan Your Day with Ease',
+                  description:
+                      'Seamlessly schedule your daily tasks and let the app handle the reminders for you. '
+                      'Stay on top of your commitments and make the most out of every day without worrying about forgetting important duties.',
                 ),
                 OnBoardItem(
                   image: AppAssets.onboradingthree,
-                  title: 'Accomplish Your Goals ',
+                  title: 'Accomplish Your Goals',
                   description:
-                      'Track Your Activities And Accomplish Your Goals.',
+                      'Monitor your progress and stay motivated as you work towards completing your goals. '
+                      'With an intuitive tracking system, you can measure your accomplishments and keep moving forward with confidence.',
                 ),
               ],
             ),

@@ -8,32 +8,11 @@ import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 
+import '../../../../blocs/authentication/authentication_cubit.dart';
 import '../../../../blocs/login_form/login_form_cubit.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
-
-  @override
-  State<SignInForm> createState() => _SignInFormState();
-}
-
-class _SignInFormState extends State<SignInForm> {
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    super.initState();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +80,14 @@ class _SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginFormCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.status == FormzSubmissionStatus.success) {
+          context.read<AuthenticationCubit>().login(
+                email: state.email.value,
+                password: state.password.value,
+              );
+        }
+      },
       builder: (context, state) {
         final isLoading = state.status == FormzSubmissionStatus.inProgress;
         final isEnabled = state.isValid;

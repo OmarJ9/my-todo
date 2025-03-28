@@ -9,17 +9,13 @@ import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dart';
 
 import '../../../../../../core/widgets/app_circular_indicator.dart';
+import '../../../../blocs/authentication/authentication_cubit.dart';
 
-class SignUpForm extends StatefulWidget {
+class SignUpForm extends StatelessWidget {
   const SignUpForm({
     super.key,
   });
 
-  @override
-  State<SignUpForm> createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -110,7 +106,15 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpFormCubit, SignUpState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.status == FormzSubmissionStatus.success) {
+          context.read<AuthenticationCubit>().register(
+                email: state.email.value,
+                password: state.password.value,
+                username: state.username.value,
+              );
+        }
+      },
       builder: (context, state) {
         final isLoading = state.status == FormzSubmissionStatus.inProgress;
         final isEnabled = state.isValid;
