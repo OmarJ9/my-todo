@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/core/widgets/app_circular_button.dart';
+import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:todo_app/features/onboarding/widgets/on_boarding_custom_dots.dart';
 import 'package:todo_app/core/route/app_router.dart';
@@ -33,26 +33,22 @@ class OnboardingNavigation extends StatelessWidget {
             bottom: 40.h,
             left: 0,
             right: 0,
-            child: Center(
-              child: AppCircularButton(
-                color: Colors.pink.withOpacity(0.6),
-                width: 100.w,
-                text: 'Begin',
-                icon: Icons.arrow_right_alt_sharp,
-                condition: cubit.curruntindext != 2,
-                func: () {
-                  pageController.nextPage(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                  if (cubit.curruntindext < 2) {
-                    cubit.changeindex();
-                  } else {
-                    context.goNamed(RouteNames.welcomepage);
-                    cubit.savepref();
-                  }
-                },
-              ),
+            child: AppButton(
+              color: Colors.pink.withOpacity(0.6),
+              width: 100.w,
+              title: 'Begin',
+              onClick: () {
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+                if (cubit.curruntindext < 2) {
+                  cubit.changeindex();
+                } else {
+                  context.goNamed(RouteNames.welcomepage);
+                  cubit.savepref();
+                }
+              },
             ),
           ),
         ],

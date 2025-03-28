@@ -22,7 +22,7 @@ class ButtonsSection extends StatelessWidget {
           color: context.theme.primaryColor,
           width: double.infinity,
           title: 'Save Changes',
-          func: onSaveChanges,
+          onClick: onSaveChanges,
         ),
 
         AppSizes.gapH16,
@@ -32,7 +32,7 @@ class ButtonsSection extends StatelessWidget {
           color: Colors.red,
           width: double.infinity,
           title: 'Logout',
-          func: () {
+          onClick: () {
             context.read<AuthenticationCubit>().signout();
             Navigator.of(context).pop();
           },

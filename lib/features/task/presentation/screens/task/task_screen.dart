@@ -152,7 +152,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     color: context.theme.primaryColor,
                     width: 1.sw,
                     title: isEditMode ? 'Update Task' : 'Add Task',
-                    func: () => _handleSubmit(context),
+                    onClick: () => _handleSubmit(context),
                   ),
                 ],
               ),

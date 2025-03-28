@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 
 class AppTextfield extends StatelessWidget {
   final IconData icon;
@@ -33,7 +34,6 @@ class AppTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textCapitalization: TextCapitalization.sentences,
       maxLines: 1,
       maxLength: maxlenght,
       readOnly: readonly,
@@ -48,30 +48,32 @@ class AppTextfield extends StatelessWidget {
           filled: true,
           hintText: hint,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: Colors.grey.shade200,
-                width: 0,
-              )),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(
+              color: context.theme.primaryColor,
+              width: 1,
+            ),
+          ),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          hintStyle:
-              AppTypography.medium14().copyWith(color: Colors.deepPurple),
+          hintStyle: AppTypography.medium14().copyWith(
+            color: Colors.grey.shade500,
+          ),
           prefixIcon: showicon
               ? Icon(
                   icon,
                   size: 22,
-                  color: Colors.deepPurple,
+                  color: context.theme.primaryColor,
                 )
               : null,
           suffixIcon: readonly
               ? Icon(
                   icon,
                   size: 22,
-                  color: Colors.deepPurple,
+                  color: context.theme.primaryColor,
                 )
               : null),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.always,
       validator: validator,
     );
   }

@@ -63,7 +63,7 @@ class _SignInFormState extends State<SignInForm> {
             color: Colors.deepPurple,
             width: 1.sw,
             title: 'Sign In',
-            func: () {
+            onClick: () {
               if (formKey.currentState!.validate()) {
                 context.read<AuthenticationCubit>().login(
                       email: emailController.text,

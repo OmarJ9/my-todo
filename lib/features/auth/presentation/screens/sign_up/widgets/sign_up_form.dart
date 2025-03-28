@@ -85,7 +85,7 @@ class _SignUpFormState extends State<SignUpForm> {
               color: Colors.deepPurple,
               width: 200.w,
               title: 'Sign Up',
-              func: () {
+              onClick: () {
                 if (formKey.currentState!.validate()) {
                   context.read<AuthenticationCubit>().register(
                         username: nameController.text,

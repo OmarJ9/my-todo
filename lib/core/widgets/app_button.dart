@@ -8,29 +8,29 @@ class AppButton extends StatelessWidget {
     required this.color,
     required this.width,
     required this.title,
-    required this.func,
+    required this.onClick,
   });
 
   final Color color;
   final double width;
   final String title;
-  final Function() func;
+  final Function() onClick;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      padding: EdgeInsets.symmetric(vertical: 0.1.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(200),
-        color: color,
-      ),
-      child: MaterialButton(
-        onPressed: func,
-        child: Text(
-          title,
-          style: AppTypography.medium16().copyWith(color: Colors.white),
+    return ElevatedButton(
+      onPressed: onClick,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        minimumSize: Size(width, 30.h),
+      ),
+      child: Text(
+        title,
+        style: AppTypography.medium16().copyWith(color: Colors.white),
       ),
     );
   }

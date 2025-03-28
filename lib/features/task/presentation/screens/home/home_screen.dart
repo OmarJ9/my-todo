@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: context.theme.primaryColor,
                     width: 150.w,
                     title: '+ Add Task',
-                    func: () {
+                    onClick: () {
                       context.pushNamed(RouteNames.addtaskpage, extra: {
                         'date': currentdate,
                       });
