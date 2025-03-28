@@ -86,6 +86,7 @@ class AuthRepository implements IAuthRepository {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
+      print(e);
       return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }

@@ -12,6 +12,7 @@ class AppButton extends StatelessWidget {
     this.onClick,
     this.isOutlined = false,
     this.height = 35,
+    this.isLoading = false,
   });
 
   final Color color;
@@ -20,6 +21,7 @@ class AppButton extends StatelessWidget {
   final String title;
   final Function()? onClick;
   final bool isOutlined;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +40,23 @@ class AppButton extends StatelessWidget {
         minimumSize: Size(width, height),
         shadowColor: isOutlined ? Colors.transparent : color.withOpacity(0.4),
       ),
-      child: Text(
-        title,
-        style: AppTypography.medium16().copyWith(
-          color: isOutlined ? context.theme.primaryColor : Colors.white,
-        ),
-      ),
+      child: isLoading
+          ? SizedBox(
+              height: 20.h,
+              width: 20.h,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  isOutlined ? color : Colors.white,
+                ),
+              ),
+            )
+          : Text(
+              title,
+              style: AppTypography.medium16().copyWith(
+                color: isOutlined ? context.theme.primaryColor : Colors.white,
+              ),
+            ),
     );
   }
 }

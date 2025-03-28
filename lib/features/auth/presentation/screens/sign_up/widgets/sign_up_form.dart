@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dart';
-
-import '../../../../../../core/widgets/app_circular_indicator.dart';
 import '../../../../blocs/authentication/authentication_cubit.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -105,29 +102,33 @@ class _SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignUpFormCubit, SignUpState>(
-      listener: (context, state) {
-        if (state.status == FormzSubmissionStatus.success) {
-          context.read<AuthenticationCubit>().register(
-                email: state.email.value,
-                password: state.password.value,
-                username: state.username.value,
-              );
-        }
-      },
+    final isEnabled =
+        context.select((SignUpFormCubit cubit) => cubit.state.isValid);
+
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
       builder: (context, state) {
-        final isLoading = state.status == FormzSubmissionStatus.inProgress;
-        final isEnabled = state.isValid;
-        if (isLoading) {
-          return AppCircularIndicator();
-        }
+        final isLoading = state is AuthenticationLoadingState;
         return AppButton(
           color: context.theme.primaryColor,
           width: 1.sw,
           title: 'Sign Up',
-          onClick: isEnabled
+          isLoading: isLoading,
+          onClick: (isEnabled && !isLoading)
               ? () {
-                  context.read<SignUpFormCubit>().signup();
+                  context.read<AuthenticationCubit>().register(
+                        email:
+                            context.read<SignUpFormCubit>().state.email.value,
+                        password: context
+                            .read<SignUpFormCubit>()
+                            .state
+                            .password
+                            .value,
+                        username: context
+                            .read<SignUpFormCubit>()
+                            .state
+                            .username
+                            .value,
+                      );
                 }
               : null,
         );
