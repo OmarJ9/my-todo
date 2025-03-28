@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:todo_app/features/onboarding/widgets/onboarding_content.dart';
-import 'package:todo_app/features/onboarding/widgets/onboarding_navigation.dart';
+import 'package:todo_app/features/onboarding/widgets/on_boarding_custom_dots.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -35,10 +35,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
           OnboardingCubit cubit = BlocProvider.of(context);
           return Column(
             children: [
-              OnboardingContent(pageController: _pageController),
-              OnboardingNavigation(
+              OnboardingContent(
                 pageController: _pageController,
                 cubit: cubit,
+              ),
+              Expanded(
+                flex: 1,
+                child: CustomDots(myindex: cubit.curruntindext),
               ),
             ],
           );
