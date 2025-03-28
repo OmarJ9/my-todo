@@ -36,7 +36,6 @@ class _SPlashScreenState extends State<SPlashScreen> {
 
   void _startDelay() {
     _timer = Timer(const Duration(seconds: 3), () async {
-      getIt<CacheService>().deleteAll();
       final token =
           await getIt.get<SecureStorageService>().read(CacheKeys.refreshToken);
       final isLogged = getIt.get<CacheService>().getBool(CacheKeys.isLogged);
