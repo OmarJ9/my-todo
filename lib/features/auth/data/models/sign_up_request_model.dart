@@ -1,17 +1,17 @@
 class SignUpRequestBody {
-  final String usernamename;
+  final String username;
   final String email;
   final String password;
 
   SignUpRequestBody({
-    required this.usernamename,
+    required this.username,
     required this.email,
     required this.password,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'username': usernamename,
+      'username': username,
       'email': email,
       'password': password,
     };

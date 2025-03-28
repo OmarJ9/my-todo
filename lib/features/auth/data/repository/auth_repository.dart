@@ -51,6 +51,11 @@ class AuthRepository implements IAuthRepository {
 
       await _authLocalDataSource.saveIsLogged();
 
+      if (response.user == null) {
+        return left(
+            ServerFailure(errorMessage: "User data is missing from response"));
+      }
+
       return right(response.user!);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -69,7 +74,7 @@ class AuthRepository implements IAuthRepository {
     try {
       final response = await _authRemoteDataSource.signup(
         SignUpRequestBody(
-          usernamename: username,
+          username: username,
           email: email,
           password: password,
         ),
@@ -81,12 +86,16 @@ class AuthRepository implements IAuthRepository {
 
       await _authLocalDataSource.saveIsLogged();
 
+      if (response.user == null) {
+        return left(
+            ServerFailure(errorMessage: "User data is missing from response"));
+      }
+
       return right(response.user!);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
-      print(e);
       return left(ServerFailure(errorMessage: "Something went wrong"));
     }
   }
