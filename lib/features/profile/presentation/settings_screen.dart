@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool notificationsEnabled = false;
   ThemeMode selectedTheme = ThemeMode.system;
   bool isDarkModeEnabled = false;
-
+  String email = '';
   @override
   void initState() {
     super.initState();
@@ -49,6 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             if (state.user.avatarIndex != null) {
               selectedProfileImage = state.user.avatarIndex!;
             }
+            email = state.user.email ?? 'User@gmail.com';
           });
         } else if (state is ProfileUpdated) {
           Alerts.of(context).showSuccess('Profile updated successfully');
@@ -92,6 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           });
                         },
                         usernameController: _userController,
+                        email: email,
                       ),
 
                       AppSizes.gapH32,

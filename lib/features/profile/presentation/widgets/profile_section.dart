@@ -4,17 +4,20 @@ import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/widgets/app_textfield.dart';
 
 class ProfileSection extends StatelessWidget {
   final int selectedProfileImage;
   final Function(int) onProfileImageSelected;
   final TextEditingController usernameController;
+  final String email;
 
   const ProfileSection({
     super.key,
     required this.selectedProfileImage,
     required this.onProfileImageSelected,
     required this.usernameController,
+    required this.email,
   });
 
   @override
@@ -49,7 +52,7 @@ class ProfileSection extends StatelessWidget {
               ),
               AppSizes.gapH16,
               Text(
-                'Change Profile Picture',
+                email,
                 style:
                     AppTypography.medium16().copyWith(color: Appcolors.purple),
               ),
@@ -64,20 +67,13 @@ class ProfileSection extends StatelessWidget {
           style: AppTypography.bold16(),
         ),
         AppSizes.gapH8,
-        TextField(
-          controller: usernameController,
-          decoration: InputDecoration(
-            hintText: 'Enter your username',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Appcolors.purple),
-            ),
-          ),
+        AppTextfield(
+          hint: 'Enter your username',
+          icon: Icons.person,
+          validator: (value) => value!.isEmpty ? 'Username is required' : null,
+          textEditingController: usernameController,
         ),
+
         AppSizes.gapH32,
 
         // Profile pictures selection

@@ -35,19 +35,26 @@ class ProfileCubit extends Cubit<ProfileState> {
   }) async {
     emit(ProfileLoading());
 
-    final user = UserModel(
-      id: "1",
-      username: username,
-      avatarIndex: avatarIndex,
-      email: "test@test.com",
-    );
+    // First get the current user data
+    final currentUserResult = await _profileRepository.getProfile();
 
-    final result = await _profileRepository.updateProfile(user);
-    result.fold(
+    return currentUserResult.fold(
       (failure) => emit(ProfileError(failure.errorMessage)),
-      (_) {
-        emit(ProfileUpdated());
-        getProfile();
+      (currentUser) async {
+        // Only update username and avatarIndex
+        final updatedUser = currentUser.copyWith(
+          username: username,
+          avatarIndex: avatarIndex,
+        );
+
+        final result = await _profileRepository.updateProfile(updatedUser);
+        result.fold(
+          (failure) => emit(ProfileError(failure.errorMessage)),
+          (_) {
+            emit(ProfileUpdated());
+            getProfile();
+          },
+        );
       },
     );
   }
