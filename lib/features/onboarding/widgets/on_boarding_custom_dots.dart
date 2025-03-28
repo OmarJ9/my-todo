@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 
 class CustomDots extends StatelessWidget {
   final int myindex;
@@ -27,7 +26,7 @@ class CustomDots extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: index == myindex ? Appcolors.white : Colors.white54),
+          color: index == myindex ? Colors.white : Colors.white54),
     );
   }
 }

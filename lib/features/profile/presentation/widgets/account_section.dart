@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 
 class AccountSection extends StatelessWidget {
   const AccountSection({super.key});
@@ -24,6 +24,7 @@ class AccountSection extends StatelessWidget {
           onTap: () {
             // Navigate to privacy settings
           },
+          color: context.theme.primaryColor,
         ),
         _buildPreferenceItem(
           icon: Icons.help_outline,
@@ -32,6 +33,7 @@ class AccountSection extends StatelessWidget {
           onTap: () {
             // Navigate to help and support
           },
+          color: context.theme.primaryColor,
         ),
         _buildPreferenceItem(
           icon: Icons.info_outline,
@@ -40,6 +42,7 @@ class AccountSection extends StatelessWidget {
           onTap: () {
             // Navigate to about page
           },
+          color: context.theme.primaryColor,
         ),
       ],
     );
@@ -50,6 +53,7 @@ class AccountSection extends StatelessWidget {
     required String title,
     required String subtitle,
     required VoidCallback onTap,
+    required Color color,
   }) {
     return InkWell(
       onTap: onTap,
@@ -64,7 +68,7 @@ class AccountSection extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: Icon(icon, color: Appcolors.purple),
+              child: Icon(icon, color: color),
             ),
             AppSizes.gapW16,
             Expanded(

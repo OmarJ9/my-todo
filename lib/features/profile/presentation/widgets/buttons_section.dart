@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
 
@@ -19,7 +19,7 @@ class ButtonsSection extends StatelessWidget {
       children: [
         // Save button
         AppButton(
-          color: Appcolors.purple,
+          color: context.theme.primaryColor,
           width: double.infinity,
           title: 'Save Changes',
           func: onSaveChanges,

@@ -2,18 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/features/onboarding/cubit/onboarding_cubit.dart';
 import 'package:todo_app/core/route/app_router.dart';
-import 'package:todo_app/core/theme/app_thems.dart';
 import 'package:todo_app/features/auth/presentation/cubit/authentication_cubit.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/features/profile/presentation/cubit/profile_cubit.dart';
+
+import 'core/theme/theme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   configureDependencies();
+
+  final storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getApplicationDocumentsDirectory()).path,
+    ),
+  );
+
+  HydratedBloc.storage = storage;
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
@@ -42,14 +53,20 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => getIt<ProfileCubit>(),
             ),
+            BlocProvider(
+              create: (context) => ThemeCubit(),
+            ),
           ],
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Todo App',
-            themeMode: ThemeMode.light,
-            theme: MyTheme.lightTheme,
-            darkTheme: MyTheme.darkTheme,
-            routerConfig: AppRouter().router,
+          child: BlocBuilder<ThemeCubit, ThemeData>(
+            builder: (context, state) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'Todo App',
+                themeMode: ThemeMode.light,
+                theme: state,
+                routerConfig: AppRouter().router,
+              );
+            },
           ),
         );
       },

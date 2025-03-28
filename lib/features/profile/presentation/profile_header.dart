@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
 import 'package:todo_app/core/route/app_router.dart';
@@ -48,7 +47,7 @@ class ProfileSection extends StatelessWidget {
                 child: Icon(
                   Icons.settings,
                   size: 30.sp,
-                  color: Appcolors.black,
+                  color: Colors.black,
                 ),
               )
             ],

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 
 class ProfileSection extends StatelessWidget {
@@ -53,8 +53,9 @@ class ProfileSection extends StatelessWidget {
               AppSizes.gapH16,
               Text(
                 email,
-                style:
-                    AppTypography.medium16().copyWith(color: Appcolors.purple),
+                style: AppTypography.medium16().copyWith(
+                  color: context.theme.primaryColor,
+                ),
               ),
             ],
           ),
@@ -95,7 +96,10 @@ class ProfileSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: selectedProfileImage == index
-                        ? Border.all(color: Appcolors.purple, width: 2)
+                        ? Border.all(
+                            color: context.theme.primaryColor,
+                            width: 2,
+                          )
                         : null,
                   ),
                   child: CircleAvatar(

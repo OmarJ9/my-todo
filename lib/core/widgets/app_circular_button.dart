@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 
 class AppCircularButton extends StatelessWidget {
   const AppCircularButton({
@@ -37,7 +36,7 @@ class AppCircularButton extends StatelessWidget {
             child: (condition)
                 ? Icon(
                     icon,
-                    color: Appcolors.white,
+                    color: Colors.white,
                     size: 30.sp,
                   )
                 : Text(
@@ -45,7 +44,7 @@ class AppCircularButton extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge
-                        ?.copyWith(fontSize: 9.sp, color: Appcolors.white),
+                        ?.copyWith(fontSize: 9.sp, color: Colors.white),
                   ),
           ),
         ),

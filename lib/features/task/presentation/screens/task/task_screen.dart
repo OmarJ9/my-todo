@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/data/models/task_model.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/features/task/presentation/screens/task/widgets/task_form_section.dart';
 import 'package:todo_app/features/task/presentation/screens/task/widgets/color_picker_section.dart';
@@ -93,7 +93,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Appcolors.white,
+      backgroundColor: Colors.white,
       body: BlocListener<TaskCubit, TaskState>(
         listener: (context, state) {
           if (state is TaskError) {
@@ -149,7 +149,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                   AppSizes.gapH32,
                   AppButton(
-                    color: Colors.deepPurple,
+                    color: context.theme.primaryColor,
                     width: 1.sw,
                     title: isEditMode ? 'Update Task' : 'Add Task',
                     func: () => _handleSubmit(context),

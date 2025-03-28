@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -30,7 +29,7 @@ class AppButton extends StatelessWidget {
         onPressed: func,
         child: Text(
           title,
-          style: AppTypography.medium16().copyWith(color: Appcolors.white),
+          style: AppTypography.medium16().copyWith(color: Colors.white),
         ),
       ),
     );

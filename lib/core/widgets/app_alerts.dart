@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants/app_sizes.dart';
 import '../theme/app_styles.dart';
-import '../theme/app_colors.dart';
 
 class Alerts {
   final BuildContext context;
@@ -19,7 +18,7 @@ class Alerts {
             children: [
               Icon(
                 Icons.dangerous_rounded,
-                color: Appcolors.red,
+                color: Colors.red,
                 size: 48.sp,
               ),
               AppSizes.gapW8,
@@ -30,13 +29,13 @@ class Alerts {
                     Text(
                       'Erreur est survenue',
                       style: AppTypography.bold16(
-                        color: Appcolors.red,
+                        color: Colors.red,
                       ),
                     ),
                     Text(
                       message,
                       style: AppTypography.medium12(
-                        color: Appcolors.red,
+                        color: Colors.red,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -50,7 +49,7 @@ class Alerts {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.r),
             side: BorderSide(
-              color: Appcolors.red,
+              color: Colors.red,
               width: 2.w,
             ),
           ),
@@ -78,7 +77,7 @@ class Alerts {
             children: [
               Icon(
                 Icons.check_circle_outline,
-                color: Appcolors.red,
+                color: Colors.green,
                 size: 48.sp,
               ),
               AppSizes.gapW8,
@@ -89,13 +88,13 @@ class Alerts {
                     Text(
                       'Congratulation',
                       style: AppTypography.bold16(
-                        color: Appcolors.red,
+                        color: Colors.green,
                       ),
                     ),
                     Text(
                       message,
                       style: AppTypography.medium12(
-                        color: Appcolors.red,
+                        color: Colors.green,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -109,7 +108,7 @@ class Alerts {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.r),
             side: BorderSide(
-              color: Appcolors.red,
+              color: Colors.green,
               width: 2.w,
             ),
           ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/theme/app_thems.dart';
+import 'package:todo_app/core/theme/theme_cubit.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:todo_app/features/profile/presentation/widgets/account_section.dart';
@@ -25,11 +26,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ThemeMode selectedTheme = ThemeMode.system;
   bool isDarkModeEnabled = false;
   String email = '';
+  AppThemeColor selectedThemeColor = AppThemeColor.purple;
+
   @override
   void initState() {
     super.initState();
     // Get user profile on init
     context.read<ProfileCubit>().getProfile();
+
+    // Initialize the selected theme color based on current theme
+    final currentTheme = context.read<ThemeCubit>().state;
+    for (var entry in AppTheme.themes.entries) {
+      if (entry.value == currentTheme) {
+        selectedThemeColor = entry.key;
+        break;
+      }
+    }
   }
 
   @override
@@ -67,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             style: AppTypography.bold20(),
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Appcolors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => context.pop(),
           ),
         ),
@@ -127,6 +139,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               selectedTheme = ThemeMode.light;
                             }
                           });
+                        },
+                        selectedThemeColor: selectedThemeColor,
+                        onThemeColorChanged: (themeColor) {
+                          setState(() {
+                            selectedThemeColor = themeColor;
+                          });
+                          // Update the app theme using the ThemeCubit
+                          context.read<ThemeCubit>().changeTheme(themeColor);
                         },
                       ),
 

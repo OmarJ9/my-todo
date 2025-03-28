@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo_app/core/theme/app_colors.dart';
+enum AppThemeColor {
+  purple,
 
-class MyTheme {
-  static ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
-    fontFamily: "Montserrat",
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Appcolors.white,
-      brightness: Brightness.light,
-    ),
-  );
+  green,
 
-  static ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    fontFamily: "Montserrat",
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Appcolors.black,
-      brightness: Brightness.dark,
+  orange
+}
+
+class AppTheme {
+  static final Map<AppThemeColor, ThemeData> themes = {
+    AppThemeColor.purple: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.deepPurple,
     ),
-  );
+    AppThemeColor.green: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.green,
+    ),
+    AppThemeColor.orange: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.orange,
+    ),
+  };
 }
