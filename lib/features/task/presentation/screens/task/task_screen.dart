@@ -15,9 +15,11 @@ import 'package:intl/intl.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final TaskModel? task;
+  final DateTime date;
 
   const AddTaskScreen({
     this.task,
+    required this.date,
     super.key,
   });
 
@@ -28,34 +30,63 @@ class AddTaskScreen extends StatefulWidget {
 class _AddTaskScreenState extends State<AddTaskScreen> {
   get isEditMode => widget.task != null;
 
-  String _title = '';
-  String _note = '';
-  DateTime _date = DateTime.now();
-  TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay(
-    hour: TimeOfDay.now().hour + 1,
-    minute: TimeOfDay.now().minute,
-  );
-  int _reminder = 5;
-  int _colorIndex = 0;
+  late String _title;
+  late String _note;
+  late DateTime _date;
+  late TimeOfDay _startTime;
+  late TimeOfDay _endTime;
+  late int _reminder;
+  late int _colorIndex;
 
   @override
   void initState() {
     super.initState();
+    _initializeValues();
+  }
+
+  void _initializeValues() {
     if (isEditMode) {
-      _title = widget.task!.title ?? '';
-      _note = widget.task!.note ?? '';
-      _date = DateTime.parse(widget.task!.date ?? '');
-      _startTime = TimeOfDay(
-        hour: int.parse(widget.task!.starttime?.split(':')[0] ?? '0'),
-        minute: int.parse(widget.task!.starttime?.split(':')[1] ?? '0'),
+      final task = widget.task!;
+      _title = task.title ?? '';
+      _note = task.note ?? '';
+      _date = task.date != null
+          ? DateFormat('yyyy-MM-dd').parse(task.date!)
+          : DateTime.now();
+
+      if (task.starttime != null) {
+        final startTimeParts = task.starttime!.split(':');
+        _startTime = TimeOfDay(
+          hour: int.parse(startTimeParts[0]),
+          minute: int.parse(startTimeParts[1]),
+        );
+      } else {
+        _startTime = TimeOfDay.now();
+      }
+
+      if (task.endtime != null) {
+        final endTimeParts = task.endtime!.split(':');
+        _endTime = TimeOfDay(
+          hour: int.parse(endTimeParts[0]),
+          minute: int.parse(endTimeParts[1]),
+        );
+      } else {
+        _endTime = TimeOfDay.fromDateTime(
+          DateTime.now().add(const Duration(hours: 1)),
+        );
+      }
+
+      _reminder = task.reminder ?? 5;
+      _colorIndex = task.colorindex ?? 0;
+    } else {
+      _title = '';
+      _note = '';
+      _date = DateTime.now();
+      _startTime = TimeOfDay.now();
+      _endTime = TimeOfDay.fromDateTime(
+        DateTime.now().add(const Duration(hours: 1)),
       );
-      _endTime = TimeOfDay(
-        hour: int.parse(widget.task!.endtime?.split(':')[0] ?? '0'),
-        minute: int.parse(widget.task!.endtime?.split(':')[1] ?? '0'),
-      );
-      _reminder = widget.task!.reminder ?? 5;
-      _colorIndex = widget.task!.colorindex ?? 0;
+      _reminder = 5;
+      _colorIndex = 0;
     }
   }
 
@@ -68,9 +99,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           if (state is TaskError) {
             Alerts.of(context).showError(state.message);
           } else if (state is TaskAdded || state is TaskUpdated) {
-            context
-                .read<TaskCubit>()
-                .getTasks(DateFormat('yyyy-MM-dd').format(_date));
+            context.read<TaskCubit>().getTasks(
+                  DateFormat('yyyy-MM-dd').format(widget.date),
+                );
             context.pop();
           }
         },
@@ -92,23 +123,29 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     initialEndTime: _endTime,
                     initialReminder: _reminder,
                     initialColorIndex: _colorIndex,
-                    onTitleChanged: (value) => _title = value,
-                    onNoteChanged: (value) => _note = value,
-                    onDateChanged: (value) => _date = value,
-                    onStartTimeChanged: (value) => _startTime = value,
-                    onEndTimeChanged: (value) => _endTime = value,
-                    onReminderChanged: (value) => _reminder = value,
-                    onColorChanged: (value) => _colorIndex = value,
+                    onTitleChanged: (value) => setState(() => _title = value),
+                    onNoteChanged: (value) => setState(() => _note = value),
+                    onDateChanged: (value) => setState(() => _date = value),
+                    onStartTimeChanged: (value) =>
+                        setState(() => _startTime = value),
+                    onEndTimeChanged: (value) =>
+                        setState(() => _endTime = value),
+                    onReminderChanged: (value) =>
+                        setState(() => _reminder = value),
+                    onColorChanged: (value) =>
+                        setState(() => _colorIndex = value),
                   ),
                   AppSizes.gapH24,
                   ColorPickerSection(
                     selectedColorIndex: _colorIndex,
-                    onColorSelected: (value) => _colorIndex = value,
+                    onColorSelected: (value) =>
+                        setState(() => _colorIndex = value),
                   ),
                   AppSizes.gapH24,
                   ReminderSection(
                     selectedReminder: _reminder,
-                    onReminderSelected: (value) => _reminder = value,
+                    onReminderSelected: (value) =>
+                        setState(() => _reminder = value),
                   ),
                   AppSizes.gapH32,
                   AppButton(

@@ -53,7 +53,10 @@ class TaskListSection extends StatelessWidget {
                     return InkWell(
                       onTap: () => context.pushNamed(
                         RouteNames.addtaskpage,
-                        extra: task,
+                        extra: {
+                          'task': task,
+                          'date': selectedDate,
+                        },
                       ),
                       child: index % 2 == 0
                           ? BounceInLeft(

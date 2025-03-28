@@ -60,8 +60,10 @@ class AppRouter {
         path: RouteNames.addtaskpage,
         name: RouteNames.addtaskpage,
         builder: (context, state) {
-          final task = state.extra as TaskModel?;
-          return AddTaskScreen(task: task);
+          final data = state.extra as Map<String, dynamic>?;
+          final task = data?['task'] as TaskModel?;
+          final DateTime date = data?['date'] as DateTime;
+          return AddTaskScreen(task: task, date: date);
         },
       ),
       GoRoute(

@@ -59,6 +59,7 @@ class DioClient {
     final refreshToken = await storage.read('refresh_token');
 
     if (refreshToken == null || JwtDecoder.isExpired(refreshToken)) {
+      debugPrint('Refresh token is expired or null');
       await _logout();
       return null;
     }

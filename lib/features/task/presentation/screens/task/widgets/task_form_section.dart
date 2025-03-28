@@ -208,7 +208,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
       context: context,
       initialDate: currentdate,
       firstDate: DateTime.now(),
-      lastDate: DateTime(2025),
+      lastDate:
+          DateTime.now().add(const Duration(days: 365 * 5)), // 5 years from now
     );
     if (picked != null && picked != currentdate) {
       setState(() {
@@ -247,7 +248,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
       showPicker(
         value: Time.fromTimeOfDay(endhour, null),
         is24HrFormat: true,
-        minHour: _starthour.hour.toDouble() - 1,
+        minHour:
+            _starthour.hour.toDouble() > 0 ? _starthour.hour.toDouble() : 0,
         accentColor: Colors.deepPurple,
         onChange: (TimeOfDay newvalue) {
           setState(() {
