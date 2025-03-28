@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/core/route/app_router.dart';
 import 'package:todo_app/core/services/secure_storage_service.dart';
 import 'package:todo_app/core/services/shared_prefs_service.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class SPlashScreen extends StatefulWidget {
   const SPlashScreen({super.key});
@@ -21,12 +23,14 @@ class _SPlashScreenState extends State<SPlashScreen> {
   @override
   void initState() {
     super.initState();
+
     _startDelay();
   }
 
   @override
   void dispose() {
     if (_timer.isActive) _timer.cancel();
+
     super.dispose();
   }
 
@@ -56,17 +60,59 @@ class _SPlashScreenState extends State<SPlashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircularProgressIndicator(),
-            AppSizes.gapH24,
-            Text(
-              'Loading...',
-              style: AppTypography.medium16(),
-            ),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.deepPurple.shade800,
+              Colors.deepPurple.shade500,
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FadeInDown(
+                duration: const Duration(milliseconds: 1200),
+                child: ZoomIn(
+                  duration: const Duration(milliseconds: 1500),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      BoxIcons.bx_task,
+                      size: 80,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              AppSizes.gapH24,
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 1000),
+                child: Text(
+                  'My Todo',
+                  style: AppTypography.bold32(color: Colors.white),
+                ),
+              ),
+              AppSizes.gapH16,
+              FadeIn(
+                delay: const Duration(milliseconds: 800),
+                duration: const Duration(milliseconds: 1000),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  strokeWidth: 3,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
