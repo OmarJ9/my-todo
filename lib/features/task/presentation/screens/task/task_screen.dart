@@ -153,15 +153,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
 
     final task = TaskModel(
-      id: isEditMode ? widget.task?.id : DateTime.now().toIso8601String(),
       title: _title,
       note: _note,
       date: DateFormat('yyyy-MM-dd').format(_date),
+      time: DateFormat('hh:mm a').format(_date),
       reminder: _reminder,
       colorindex: _colorIndex,
     );
-
-    print(task.toJson());
 
     if (isEditMode) {
       context.read<TaskCubit>().updateTask(task);

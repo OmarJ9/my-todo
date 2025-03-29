@@ -9,7 +9,7 @@ class TaskCard extends StatelessWidget {
   final String id;
   final Color color;
   final String title;
-
+  final String time;
   final String note;
 
   const TaskCard({
@@ -18,6 +18,7 @@ class TaskCard extends StatelessWidget {
     required this.color,
     required this.title,
     required this.note,
+    required this.time,
   });
 
   @override
@@ -120,7 +121,7 @@ class TaskCard extends StatelessWidget {
                                 ),
                                 SizedBox(width: 4.w),
                                 Text(
-                                  DateFormat('HH:mm a').format(DateTime.now()),
+                                  time,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.sp,

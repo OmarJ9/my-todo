@@ -9,6 +9,7 @@ class TaskModel {
   final String? title;
   final String? note;
   final String? date;
+  final String? time;
   final int? reminder;
   final int? colorindex;
 
@@ -17,6 +18,7 @@ class TaskModel {
     this.title,
     this.note,
     this.date,
+    this.time,
     this.reminder,
     this.colorindex,
   });
@@ -28,6 +30,6 @@ class TaskModel {
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, title: $title, note: $note, date: $date, reminder: $reminder, colorindex: $colorindex)';
+    return 'TaskModel(id: $id, title: $title, note: $note, date: $date, time: $time, reminder: $reminder, colorindex: $colorindex)';
   }
 }

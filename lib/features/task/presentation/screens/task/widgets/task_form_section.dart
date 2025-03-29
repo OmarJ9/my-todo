@@ -118,12 +118,24 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             style: AppTypography.medium14(),
           ),
           AppSizes.gapH12,
-          AppTextfield(
-            hint: DateFormat('dd/MM/yyyy').format(currentdate),
-            validator: (value) => null,
-            onTap: () => _showDatePicker(),
-            readOnly: true,
-            textEditingController: TextEditingController(),
+          Row(
+            children: [
+              Expanded(
+                child: AppTextfield(
+                  hint: DateFormat('dd/MM/yyyy').format(currentdate),
+                  onTap: () => _showDatePicker(),
+                  readOnly: true,
+                ),
+              ),
+              AppSizes.gapW12,
+              Expanded(
+                child: AppTextfield(
+                  hint: DateFormat('hh:mm a').format(currentdate),
+                  onTap: () => _showTimePicker(),
+                  readOnly: true,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -143,6 +155,22 @@ class _TaskFormSectionState extends State<TaskFormSection> {
         currentdate = picked;
       });
       widget.onDateChanged(picked);
+    }
+  }
+
+  void _showTimePicker() async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(currentdate),
+    );
+    if (picked != null) {
+      setState(() {
+        currentdate = DateTime(currentdate.year, currentdate.month,
+            currentdate.day, picked.hour, picked.minute);
+      });
+      widget.onDateChanged(currentdate);
+    } else {
+      print('No time picked');
     }
   }
 }

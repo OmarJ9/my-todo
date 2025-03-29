@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/theme/app_thems.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:todo_app/features/task/presentation/screens/home/widgets/task_card.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/constants/app_variables.dart';
 import '../../../../../../core/constants/app_assets.dart';
 import '../../../../../../core/route/app_router.dart';
 
@@ -36,6 +36,7 @@ class TaskListSection extends StatelessWidget {
 
         if (state is TaskLoaded) {
           final tasks = state.tasks;
+
           return tasks.isNotEmpty
               ? ListView.builder(
                   physics: const BouncingScrollPhysics(),
@@ -44,8 +45,11 @@ class TaskListSection extends StatelessWidget {
                     var task = tasks[index];
                     Widget taskcontainer = TaskCard(
                       id: task.id ?? '',
-                      color: colors[task.colorindex ?? 0],
+                      color: AppTheme
+                          .themes[AppThemeColor.values[task.colorindex ?? 0]]!
+                          .primaryColor,
                       title: task.title ?? '',
+                      time: task.time ?? '',
                       note: task.note ?? '',
                     );
                     return InkWell(

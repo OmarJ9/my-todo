@@ -32,6 +32,7 @@ class DioClient {
     RequestInterceptorHandler handler,
   ) async {
     debugPrint('REQUEST[${options.method}] => PATH: ${options.path}');
+    debugPrint('OPTIONS: ${options.data}');
 
     if (!_isAuthRoute(options.path)) {
       final token = await _getValidToken();
