@@ -153,6 +153,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
 
     final task = TaskModel(
+      id: widget.task?.id,
       title: _title,
       note: _note,
       date: DateFormat('yyyy-MM-dd').format(_date),

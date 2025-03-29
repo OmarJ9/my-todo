@@ -21,7 +21,7 @@ abstract class ITaskRemoteDataSource {
   );
 
   @PUT("/tasks/{id}")
-  Future<TaskModel> updateTask(
+  Future<void> updateTask(
     @Path('id') String id,
     @Body() TaskModel task,
   );

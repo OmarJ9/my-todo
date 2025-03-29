@@ -28,12 +28,10 @@ class TaskAdded extends TaskState {
 }
 
 class TaskUpdated extends TaskState {
-  final TaskModel task;
-
-  const TaskUpdated(this.task);
+  const TaskUpdated();
 
   @override
-  List<Object?> get props => [task];
+  List<Object?> get props => [];
 }
 
 class TaskDeleted extends TaskState {

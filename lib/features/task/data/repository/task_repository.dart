@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todo_app/core/errors/failure.dart';
 import 'package:todo_app/core/network/dio_exception.dart';
@@ -9,7 +10,7 @@ import '../models/task_model.dart';
 abstract class ITaskRepository {
   Future<Either<Failure, List<TaskModel>>> getTasks(String date);
   Future<Either<Failure, bool>> addTask(TaskModel task);
-  Future<Either<Failure, TaskModel>> updateTask(TaskModel task);
+  Future<Either<Failure, bool>> updateTask(TaskModel task);
   Future<Either<Failure, void>> deleteTask(String id);
 }
 
@@ -52,14 +53,15 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  Future<Either<Failure, TaskModel>> updateTask(TaskModel task) async {
+  Future<Either<Failure, bool>> updateTask(TaskModel task) async {
     try {
-      final updatedTask = await _taskRemoteDataSource.updateTask(
+      await _taskRemoteDataSource.updateTask(
         task.id ?? '',
         task,
       );
-      return right(updatedTask);
+      return right(true);
     } on DioException catch (e) {
+      debugPrint('DioException: $e');
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {

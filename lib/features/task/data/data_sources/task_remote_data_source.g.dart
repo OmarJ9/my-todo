@@ -90,7 +90,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
   }
 
   @override
-  Future<TaskModel> updateTask(
+  Future<void> updateTask(
     String id,
     TaskModel task,
   ) async {
@@ -99,7 +99,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(task.toJson());
-    final _options = _setStreamType<TaskModel>(Options(
+    final _options = _setStreamType<void>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
@@ -115,15 +115,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TaskModel _value;
-    try {
-      _value = TaskModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
+    await _dio.fetch<void>(_options);
   }
 
   @override

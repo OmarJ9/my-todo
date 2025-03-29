@@ -35,7 +35,7 @@ class TaskCubit extends Cubit<TaskState> {
     final result = await _taskRepository.updateTask(task);
     result.fold(
       (failure) => emit(TaskError(failure.errorMessage)),
-      (updatedTask) => emit(TaskUpdated(updatedTask)),
+      (updatedTask) => emit(const TaskUpdated()),
     );
   }
 
