@@ -10,7 +10,7 @@ import 'package:todo_app/core/route/app_router.dart';
 import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit.dart';
 import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dart';
 import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
-import 'package:todo_app/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:todo_app/features/profile/cubit/profile_cubit.dart';
 
 import 'core/theme/theme_cubit.dart';
 import 'features/auth/blocs/login_form/login_form_cubit.dart';

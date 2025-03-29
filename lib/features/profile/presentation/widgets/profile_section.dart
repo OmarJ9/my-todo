@@ -4,19 +4,16 @@ import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/constants/app_variables.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/utils/extensions.dart';
-import 'package:todo_app/core/widgets/app_textfield.dart';
 
 class ProfileSection extends StatelessWidget {
   final int selectedProfileImage;
   final Function(int) onProfileImageSelected;
-  final TextEditingController usernameController;
   final String email;
 
   const ProfileSection({
     super.key,
     required this.selectedProfileImage,
     required this.onProfileImageSelected,
-    required this.usernameController,
     required this.email,
   });
 
@@ -61,18 +58,6 @@ class ProfileSection extends StatelessWidget {
           ),
         ),
         AppSizes.gapH32,
-
-        // Username field
-        Text(
-          'Username',
-          style: AppTypography.bold16(),
-        ),
-        AppSizes.gapH8,
-        AppTextfield(
-          hint: 'Enter your username',
-          validator: (value) => value!.isEmpty ? 'Username is required' : null,
-          textEditingController: usernameController,
-        ),
 
         AppSizes.gapH32,
 

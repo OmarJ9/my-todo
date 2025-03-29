@@ -7,14 +7,13 @@ import '../data_sources/auth_local_data_source.dart';
 import '../data_sources/auth_remote_data_source.dart';
 import '../models/login_request_model.dart';
 import '../models/sign_up_request_model.dart';
-import '../../../../core/models/user_model.dart';
 
 abstract class IAuthRepository {
-  Future<Either<Failure, UserModel>> login({
+  Future<Either<Failure, bool>> login({
     required String email,
     required String password,
   });
-  Future<Either<Failure, UserModel>> signup({
+  Future<Either<Failure, bool>> signup({
     required String username,
     required String email,
     required String password,
@@ -33,7 +32,7 @@ class AuthRepository implements IAuthRepository {
   );
 
   @override
-  Future<Either<Failure, UserModel>> login({
+  Future<Either<Failure, bool>> login({
     required String email,
     required String password,
   }) async {
@@ -51,12 +50,7 @@ class AuthRepository implements IAuthRepository {
 
       await _authLocalDataSource.saveIsLogged();
 
-      if (response.user == null) {
-        return left(
-            ServerFailure(errorMessage: "User data is missing from response"));
-      }
-
-      return right(response.user!);
+      return right(true);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));
@@ -66,7 +60,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserModel>> signup({
+  Future<Either<Failure, bool>> signup({
     required String username,
     required String email,
     required String password,
@@ -86,12 +80,7 @@ class AuthRepository implements IAuthRepository {
 
       await _authLocalDataSource.saveIsLogged();
 
-      if (response.user == null) {
-        return left(
-            ServerFailure(errorMessage: "User data is missing from response"));
-      }
-
-      return right(response.user!);
+      return right(true);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       return left(ServerFailure(errorMessage: errorMessage.message));

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todo_app/features/auth/data/repository/auth_repository.dart';
 
-import '../../../../core/models/user_model.dart';
-
 part 'authentication_state.dart';
 
 @injectable
@@ -41,7 +39,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
     result.fold(
       (failure) => emit(AuthenticationErrortate(failure.errorMessage)),
-      (user) => emit(AuthenticationSuccessState(user: user)),
+      (success) => emit(AuthenticationSuccessState()),
     );
   }
 

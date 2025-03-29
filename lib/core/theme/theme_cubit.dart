@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'app_thems.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ThemeCubit extends HydratedCubit<ThemeData> {
   ThemeCubit() : super(AppTheme.themes[AppThemeColor.purple]!);
 

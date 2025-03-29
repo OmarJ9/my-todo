@@ -57,6 +57,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.5
   formz: ^0.8.0
   smooth_page_indicator: ^1.2.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   build_runner: ^2.4.13

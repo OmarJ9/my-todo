@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../../../../core/models/user_model.dart';
 
 part 'auth_response_model.g.dart';
 
@@ -7,12 +6,10 @@ part 'auth_response_model.g.dart';
 class AuthResponseModel {
   String? accessToken;
   String? refreshToken;
-  UserModel? user;
 
   AuthResponseModel({
     this.accessToken,
     this.refreshToken,
-    this.user,
   });
 
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>

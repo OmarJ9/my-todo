@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
-import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 
@@ -79,28 +77,24 @@ class _SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginFormCubit, LoginState>(
-      listener: (context, state) {
-        if (state.status == FormzSubmissionStatus.success) {
-          context.read<AuthenticationCubit>().login(
-                email: state.email.value,
-                password: state.password.value,
-              );
-        }
-      },
+    final isEnabled =
+        context.select((LoginFormCubit cubit) => cubit.state.isValid);
+
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
       builder: (context, state) {
-        final isLoading = state.status == FormzSubmissionStatus.inProgress;
-        final isEnabled = state.isValid;
-        if (isLoading) {
-          return AppCircularIndicator();
-        }
+        final isLoading = state is AuthenticationLoadingState;
         return AppButton(
           color: context.theme.primaryColor,
           width: 1.sw,
-          title: 'Sign In',
-          onClick: isEnabled
+          title: 'Sign Up',
+          isLoading: isLoading,
+          onClick: (isEnabled && !isLoading)
               ? () {
-                  context.read<LoginFormCubit>().login();
+                  context.read<AuthenticationCubit>().login(
+                        email: context.read<LoginFormCubit>().state.email.value,
+                        password:
+                            context.read<LoginFormCubit>().state.password.value,
+                      );
                 }
               : null,
         );

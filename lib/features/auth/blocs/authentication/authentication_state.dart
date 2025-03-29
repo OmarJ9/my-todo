@@ -13,12 +13,10 @@ class AuthenticationLoadingState extends AuthenticationState {
 }
 
 class AuthenticationSuccessState extends AuthenticationState {
-  final UserModel? user;
-
-  AuthenticationSuccessState({this.user});
+  AuthenticationSuccessState();
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [];
 }
 
 class AuthenticationErrortate extends AuthenticationState {
