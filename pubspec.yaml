@@ -27,7 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  animate_do: ^3.3.4
+  animate_do: ^4.2.0
   another_flushbar: ^1.10.28
   awesome_dialog: ^3.2.1
   connectivity_plus: ^6.1.2

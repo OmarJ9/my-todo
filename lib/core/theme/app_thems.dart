@@ -5,7 +5,13 @@ enum AppThemeColor {
 
   green,
 
-  orange
+  orange,
+
+  red,
+
+  teal,
+
+  pink,
 }
 
 class AppTheme {
@@ -21,6 +27,18 @@ class AppTheme {
     AppThemeColor.orange: ThemeData(
       fontFamily: "Montserrat",
       primaryColor: Colors.orange,
+    ),
+    AppThemeColor.red: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.red,
+    ),
+    AppThemeColor.teal: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.teal,
+    ),
+    AppThemeColor.pink: ThemeData(
+      fontFamily: "Montserrat",
+      primaryColor: Colors.pink,
     ),
   };
 }

@@ -21,7 +21,8 @@ class ProfileSection extends StatelessWidget {
           return const ProfileHeaderShimmer();
         } else if (state is ProfileLoaded) {
           final username = state.user.username ?? 'User';
-          final avatarIndex = state.user.avatarIndex ?? 0;
+          final avatarIndex =
+              (state.user.avatarIndex ?? 0) % profileimages.length;
 
           return Row(
             children: [

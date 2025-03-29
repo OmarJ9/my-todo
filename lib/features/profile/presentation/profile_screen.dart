@@ -11,7 +11,7 @@ import 'package:todo_app/features/auth/blocs/authentication/authentication_cubit
 import 'package:todo_app/features/profile/cubit/profile_cubit.dart';
 import 'package:todo_app/features/profile/presentation/widgets/account_section.dart';
 import 'package:todo_app/features/profile/presentation/widgets/buttons_section.dart';
-import 'package:todo_app/features/profile/presentation/widgets/preferences_section.dart';
+import 'package:todo_app/features/profile/presentation/widgets/profile_appearence_section.dart';
 import 'package:todo_app/features/profile/presentation/widgets/profile_section.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           email: state.user.email ?? '',
                         ),
                         AppSizes.gapH32,
-                        const PreferencesSection(),
+                        const AppearanceSection(),
                         AppSizes.gapH32,
                         const AccountSection(),
                         AppSizes.gapH32,

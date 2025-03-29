@@ -61,6 +61,9 @@ class _ProfileThemeSelectorState extends State<ProfileThemeSelector> {
               _buildColorOption(AppThemeColor.purple, Colors.deepPurple),
               _buildColorOption(AppThemeColor.green, Colors.green),
               _buildColorOption(AppThemeColor.orange, Colors.orange),
+              _buildColorOption(AppThemeColor.red, Colors.red),
+              _buildColorOption(AppThemeColor.teal, Colors.teal),
+              _buildColorOption(AppThemeColor.pink, Colors.pink),
             ],
           ),
         ],
@@ -76,8 +79,8 @@ class _ProfileThemeSelectorState extends State<ProfileThemeSelector> {
       onTap: () =>
           profileCubit.changeThemeColor(themeColor, context.read<ThemeCubit>()),
       child: Container(
-        width: 50.w,
-        height: 50.h,
+        width: 40.w,
+        height: 40.h,
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
