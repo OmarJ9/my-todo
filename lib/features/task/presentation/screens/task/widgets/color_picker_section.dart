@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
-import 'package:todo_app/core/constants/app_variables.dart';
+import 'package:todo_app/core/theme/app_thems.dart';
 
 class ColorPickerSection extends StatefulWidget {
   final int selectedColorIndex;
@@ -41,7 +41,7 @@ class _ColorPickerSectionState extends State<ColorPickerSection> {
           height: 50.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: colors.length,
+            itemCount: AppTheme.themes.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -52,7 +52,8 @@ class _ColorPickerSectionState extends State<ColorPickerSection> {
                   },
                   child: CircleAvatar(
                     radius: 20.r,
-                    backgroundColor: colors[index],
+                    backgroundColor: AppTheme
+                        .themes[AppThemeColor.values[index]]?.primaryColor,
                     child: _selectedColorIndex == index
                         ? const Icon(
                             Icons.check,

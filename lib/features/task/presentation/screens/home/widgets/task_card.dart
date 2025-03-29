@@ -9,8 +9,7 @@ class TaskCard extends StatelessWidget {
   final String id;
   final Color color;
   final String title;
-  final String starttime;
-  final String endtime;
+
   final String note;
 
   const TaskCard({
@@ -18,8 +17,6 @@ class TaskCard extends StatelessWidget {
     required this.id,
     required this.color,
     required this.title,
-    required this.starttime,
-    required this.endtime,
     required this.note,
   });
 
@@ -123,7 +120,7 @@ class TaskCard extends StatelessWidget {
                                 ),
                                 SizedBox(width: 4.w),
                                 Text(
-                                  '$starttime - $endtime',
+                                  DateFormat('HH:mm a').format(DateTime.now()),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.sp,

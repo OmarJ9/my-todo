@@ -46,8 +46,6 @@ class TaskListSection extends StatelessWidget {
                       id: task.id ?? '',
                       color: colors[task.colorindex ?? 0],
                       title: task.title ?? '',
-                      starttime: task.starttime ?? '',
-                      endtime: task.endtime ?? '',
                       note: task.note ?? '',
                     );
                     return InkWell(

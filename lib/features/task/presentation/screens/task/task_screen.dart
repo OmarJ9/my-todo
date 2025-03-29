@@ -33,8 +33,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   late String _title;
   late String _note;
   late DateTime _date;
-  late TimeOfDay _startTime;
-  late TimeOfDay _endTime;
   late int _reminder;
   late int _colorIndex;
 
@@ -53,38 +51,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ? DateFormat('yyyy-MM-dd').parse(task.date!)
           : DateTime.now();
 
-      if (task.starttime != null) {
-        final startTimeParts = task.starttime!.split(':');
-        _startTime = TimeOfDay(
-          hour: int.parse(startTimeParts[0]),
-          minute: int.parse(startTimeParts[1]),
-        );
-      } else {
-        _startTime = TimeOfDay.now();
-      }
-
-      if (task.endtime != null) {
-        final endTimeParts = task.endtime!.split(':');
-        _endTime = TimeOfDay(
-          hour: int.parse(endTimeParts[0]),
-          minute: int.parse(endTimeParts[1]),
-        );
-      } else {
-        _endTime = TimeOfDay.fromDateTime(
-          DateTime.now().add(const Duration(hours: 1)),
-        );
-      }
-
       _reminder = task.reminder ?? 5;
       _colorIndex = task.colorindex ?? 0;
     } else {
       _title = '';
       _note = '';
       _date = DateTime.now();
-      _startTime = TimeOfDay.now();
-      _endTime = TimeOfDay.fromDateTime(
-        DateTime.now().add(const Duration(hours: 1)),
-      );
+
       _reminder = 5;
       _colorIndex = 0;
     }
@@ -119,26 +92,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     initialTitle: _title,
                     initialNote: _note,
                     initialDate: _date,
-                    initialStartTime: _startTime,
-                    initialEndTime: _endTime,
                     initialReminder: _reminder,
                     initialColorIndex: _colorIndex,
                     onTitleChanged: (value) => setState(() => _title = value),
                     onNoteChanged: (value) => setState(() => _note = value),
                     onDateChanged: (value) => setState(() => _date = value),
-                    onStartTimeChanged: (value) =>
-                        setState(() => _startTime = value),
-                    onEndTimeChanged: (value) =>
-                        setState(() => _endTime = value),
                     onReminderChanged: (value) =>
                         setState(() => _reminder = value),
                     onColorChanged: (value) =>
-                        setState(() => _colorIndex = value),
-                  ),
-                  AppSizes.gapH24,
-                  ColorPickerSection(
-                    selectedColorIndex: _colorIndex,
-                    onColorSelected: (value) =>
                         setState(() => _colorIndex = value),
                   ),
                   AppSizes.gapH24,
@@ -146,6 +107,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     selectedReminder: _reminder,
                     onReminderSelected: (value) =>
                         setState(() => _reminder = value),
+                  ),
+                  AppSizes.gapH24,
+                  ColorPickerSection(
+                    selectedColorIndex: _colorIndex,
+                    onColorSelected: (value) =>
+                        setState(() => _colorIndex = value),
                   ),
                   AppSizes.gapH32,
                   AppButton(
@@ -186,15 +153,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
 
     final task = TaskModel(
-      id: isEditMode ? widget.task!.id : DateTime.now().toString(),
+      id: isEditMode ? widget.task?.id : DateTime.now().toIso8601String(),
       title: _title,
       note: _note,
       date: DateFormat('yyyy-MM-dd').format(_date),
-      starttime: '${_startTime.hour}:${_startTime.minute}',
-      endtime: '${_endTime.hour}:${_endTime.minute}',
       reminder: _reminder,
       colorindex: _colorIndex,
     );
+
+    print(task.toJson());
 
     if (isEditMode) {
       context.read<TaskCubit>().updateTask(task);

@@ -1,4 +1,3 @@
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
@@ -9,15 +8,13 @@ class TaskFormSection extends StatefulWidget {
   final String? initialTitle;
   final String? initialNote;
   final DateTime? initialDate;
-  final TimeOfDay? initialStartTime;
-  final TimeOfDay? initialEndTime;
+
   final int? initialReminder;
   final int? initialColorIndex;
   final Function(String) onTitleChanged;
   final Function(String) onNoteChanged;
   final Function(DateTime) onDateChanged;
-  final Function(TimeOfDay) onStartTimeChanged;
-  final Function(TimeOfDay) onEndTimeChanged;
+
   final Function(int) onReminderChanged;
   final Function(int) onColorChanged;
 
@@ -26,15 +23,11 @@ class TaskFormSection extends StatefulWidget {
     this.initialTitle,
     this.initialNote,
     this.initialDate,
-    this.initialStartTime,
-    this.initialEndTime,
     this.initialReminder,
     this.initialColorIndex,
     required this.onTitleChanged,
     required this.onNoteChanged,
     required this.onDateChanged,
-    required this.onStartTimeChanged,
-    required this.onEndTimeChanged,
     required this.onReminderChanged,
     required this.onColorChanged,
   });
@@ -47,8 +40,6 @@ class _TaskFormSectionState extends State<TaskFormSection> {
   late TextEditingController _titlecontroller;
   late TextEditingController _notecontroller;
   late DateTime currentdate;
-  late TimeOfDay _starthour;
-  late TimeOfDay endhour;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -77,12 +68,6 @@ class _TaskFormSectionState extends State<TaskFormSection> {
     _titlecontroller = TextEditingController(text: widget.initialTitle ?? '');
     _notecontroller = TextEditingController(text: widget.initialNote ?? '');
     currentdate = widget.initialDate ?? DateTime.now();
-    _starthour = widget.initialStartTime ?? TimeOfDay.now();
-    endhour = widget.initialEndTime ??
-        TimeOfDay(
-          hour: _starthour.hour + 1,
-          minute: _starthour.minute,
-        );
   }
 
   @override
@@ -127,6 +112,7 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             textEditingController: _notecontroller,
             onChange: widget.onNoteChanged,
           ),
+          AppSizes.gapH24,
           Text(
             'Date',
             style: AppTypography.medium14(),
@@ -136,53 +122,8 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             hint: DateFormat('dd/MM/yyyy').format(currentdate),
             validator: (value) => null,
             onTap: () => _showDatePicker(),
+            readOnly: true,
             textEditingController: TextEditingController(),
-          ),
-          AppSizes.gapH24,
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Start Time',
-                      style: AppTypography.medium14(),
-                    ),
-                    AppSizes.gapH12,
-                    AppTextfield(
-                      hint: DateFormat('HH:mm a').format(
-                        DateTime(0, 0, 0, _starthour.hour, _starthour.minute),
-                      ),
-                      validator: (value) => null,
-                      onTap: () => _showStartTimePicker(),
-                      textEditingController: TextEditingController(),
-                    ),
-                  ],
-                ),
-              ),
-              AppSizes.gapW12,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'End Time',
-                      style: AppTypography.medium14(),
-                    ),
-                    AppSizes.gapH12,
-                    AppTextfield(
-                      hint: DateFormat('HH:mm a').format(
-                        DateTime(0, 0, 0, endhour.hour, endhour.minute),
-                      ),
-                      validator: (value) => null,
-                      onTap: () => _showEndTimePicker(),
-                      textEditingController: TextEditingController(),
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ],
       ),
@@ -203,47 +144,5 @@ class _TaskFormSectionState extends State<TaskFormSection> {
       });
       widget.onDateChanged(picked);
     }
-  }
-
-  void _showStartTimePicker() {
-    Navigator.push(
-      context,
-      showPicker(
-        value: Time.fromTimeOfDay(_starthour, null),
-        is24HrFormat: true,
-        accentColor: Colors.deepPurple,
-        onChange: (TimeOfDay newvalue) {
-          setState(() {
-            _starthour = newvalue;
-            endhour = TimeOfDay(
-              hour:
-                  _starthour.hour < 22 ? _starthour.hour + 1 : _starthour.hour,
-              minute: _starthour.minute,
-            );
-          });
-          widget.onStartTimeChanged(newvalue);
-          widget.onEndTimeChanged(endhour);
-        },
-      ),
-    );
-  }
-
-  void _showEndTimePicker() {
-    Navigator.push(
-      context,
-      showPicker(
-        value: Time.fromTimeOfDay(endhour, null),
-        is24HrFormat: true,
-        minHour:
-            _starthour.hour.toDouble() > 0 ? _starthour.hour.toDouble() : 0,
-        accentColor: Colors.deepPurple,
-        onChange: (TimeOfDay newvalue) {
-          setState(() {
-            endhour = newvalue;
-          });
-          widget.onEndTimeChanged(newvalue);
-        },
-      ),
-    );
   }
 }

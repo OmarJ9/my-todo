@@ -9,8 +9,6 @@ class TaskModel {
   final String? title;
   final String? note;
   final String? date;
-  final String? starttime;
-  final String? endtime;
   final int? reminder;
   final int? colorindex;
 
@@ -19,8 +17,6 @@ class TaskModel {
     this.title,
     this.note,
     this.date,
-    this.starttime,
-    this.endtime,
     this.reminder,
     this.colorindex,
   });
@@ -29,4 +25,9 @@ class TaskModel {
       _$TaskModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaskModelToJson(this);
+
+  @override
+  String toString() {
+    return 'TaskModel(id: $id, title: $title, note: $note, date: $date, reminder: $reminder, colorindex: $colorindex)';
+  }
 }
