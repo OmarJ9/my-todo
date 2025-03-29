@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/utils/extensions.dart';
-import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
+import 'package:todo_app/features/task/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
@@ -83,6 +83,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               AppSizes.gapH24,
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_month,
+                    color: context.theme.primaryColor,
+                  ),
+                  AppSizes.gapW8,
+                  Text(
+                    "All The Tasks For  ",
+                    style: AppTypography.medium14(),
+                  ),
+                  Text(
+                    DateFormat('yyyy-MM-dd').format(currentdate),
+                    style: AppTypography.medium14(
+                        color: context.theme.primaryColor),
+                  ),
+                ],
+              ),
+              AppSizes.gapH12,
               Expanded(
                 child: TaskListSection(selectedDate: currentdate),
               ),

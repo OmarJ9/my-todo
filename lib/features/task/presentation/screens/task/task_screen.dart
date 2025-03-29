@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
 import 'package:todo_app/features/task/data/models/task_model.dart';
-import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart';
+import 'package:todo_app/features/task/cubit/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/features/task/presentation/screens/task/widgets/task_form_section.dart';

@@ -34,8 +34,7 @@ import 'package:todo_app/features/task/data/data_sources/task_remote_data_source
     as _i932;
 import 'package:todo_app/features/task/data/repository/task_repository.dart'
     as _i711;
-import 'package:todo_app/features/task/presentation/cubit/task_cubit.dart'
-    as _i580;
+import 'package:todo_app/features/task/cubit/task_cubit.dart' as _i580;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
