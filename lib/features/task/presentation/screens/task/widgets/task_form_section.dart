@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/core/widgets/app_textfield.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
+import 'package:todo_app/features/task/data/models/task_model.dart';
+import 'package:todo_app/core/widgets/app_button.dart';
+import 'package:todo_app/core/utils/extensions.dart';
+import 'package:todo_app/features/task/presentation/screens/task/widgets/color_picker_section.dart';
+import 'package:todo_app/features/task/presentation/screens/task/widgets/reminder_section.dart';
+
+import '../../../../../../core/widgets/app_alerts.dart';
+import '../../../../blocs/task/task_cubit.dart';
 
 class TaskFormSection extends StatefulWidget {
-  final String? initialTitle;
-  final String? initialNote;
-  final DateTime? initialDate;
-
-  final int? initialReminder;
-  final int? initialColorIndex;
-  final Function(String) onTitleChanged;
-  final Function(String) onNoteChanged;
-  final Function(DateTime) onDateChanged;
-
-  final Function(int) onReminderChanged;
-  final Function(int) onColorChanged;
+  final TaskModel? initialTask;
+  final DateTime initialDate;
 
   const TaskFormSection({
     super.key,
-    this.initialTitle,
-    this.initialNote,
-    this.initialDate,
-    this.initialReminder,
-    this.initialColorIndex,
-    required this.onTitleChanged,
-    required this.onNoteChanged,
-    required this.onDateChanged,
-    required this.onReminderChanged,
-    required this.onColorChanged,
+    this.initialTask,
+    required this.initialDate,
   });
 
   @override
@@ -37,43 +29,27 @@ class TaskFormSection extends StatefulWidget {
 }
 
 class _TaskFormSectionState extends State<TaskFormSection> {
-  late TextEditingController _titlecontroller;
-  late TextEditingController _notecontroller;
-  late DateTime currentdate;
-
+  late TextEditingController _titleController;
+  late TextEditingController _noteController;
+  late DateTime _date;
+  late int _reminder;
+  late int _colorIndex;
   final _formKey = GlobalKey<FormState>();
-
-  List<DropdownMenuItem<int>> menuItems = const [
-    DropdownMenuItem(
-      value: 5,
-      child: Text("5 Min Earlier"),
-    ),
-    DropdownMenuItem(
-      value: 10,
-      child: Text("10 Min Earlier"),
-    ),
-    DropdownMenuItem(
-      value: 15,
-      child: Text("15 Min Earlier"),
-    ),
-    DropdownMenuItem(
-      value: 20,
-      child: Text("20 Min Earlier"),
-    ),
-  ];
 
   @override
   void initState() {
     super.initState();
-    _titlecontroller = TextEditingController(text: widget.initialTitle ?? '');
-    _notecontroller = TextEditingController(text: widget.initialNote ?? '');
-    currentdate = widget.initialDate ?? DateTime.now();
+    _titleController = TextEditingController(text: widget.initialTask?.title);
+    _noteController = TextEditingController(text: widget.initialTask?.note);
+    _date = widget.initialDate;
+    _reminder = widget.initialTask?.reminder ?? 5;
+    _colorIndex = widget.initialTask?.colorindex ?? 0;
   }
 
   @override
   void dispose() {
-    _titlecontroller.dispose();
-    _notecontroller.dispose();
+    _titleController.dispose();
+    _noteController.dispose();
     super.dispose();
   }
 
@@ -84,6 +60,7 @@ class _TaskFormSectionState extends State<TaskFormSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Title Section
           AppSizes.gapH12,
           Text(
             'Title',
@@ -95,9 +72,10 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             validator: (value) {
               return value!.isEmpty ? "Please Enter A Title" : null;
             },
-            textEditingController: _titlecontroller,
-            onChange: widget.onTitleChanged,
+            textEditingController: _titleController,
           ),
+
+          // Note Section
           AppSizes.gapH24,
           Text(
             'Note',
@@ -109,9 +87,10 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             validator: (value) {
               return value!.isEmpty ? "Please Enter A Note" : null;
             },
-            textEditingController: _notecontroller,
-            onChange: widget.onNoteChanged,
+            textEditingController: _noteController,
           ),
+
+          // Date Section
           AppSizes.gapH24,
           Text(
             'Date',
@@ -122,55 +101,108 @@ class _TaskFormSectionState extends State<TaskFormSection> {
             children: [
               Expanded(
                 child: AppTextfield(
-                  hint: DateFormat('dd/MM/yyyy').format(currentdate),
-                  onTap: () => _showDatePicker(),
+                  hint: DateFormat('dd/MM/yyyy').format(_date),
+                  onTap: () => _showDatePicker(context),
                   readOnly: true,
                 ),
               ),
               AppSizes.gapW12,
               Expanded(
                 child: AppTextfield(
-                  hint: DateFormat('hh:mm a').format(currentdate),
-                  onTap: () => _showTimePicker(),
+                  hint: DateFormat('hh:mm a').format(_date),
+                  onTap: () => _showTimePicker(context),
                   readOnly: true,
                 ),
               ),
             ],
+          ),
+
+          // Reminder Section
+          AppSizes.gapH24,
+          ReminderSection(
+            selectedReminder: _reminder,
+            onReminderSelected: (value) => setState(() => _reminder = value),
+          ),
+
+          // Color Picker Section
+          AppSizes.gapH24,
+          ColorPickerSection(
+            selectedColorIndex: _colorIndex,
+            onColorSelected: (value) => setState(() => _colorIndex = value),
+          ),
+
+          // Submit Button
+          AppSizes.gapH32,
+          AppButton(
+            color: context.theme.primaryColor,
+            width: 1.sw,
+            title: widget.initialTask != null ? 'Update Task' : 'Add Task',
+            onClick: submitForm,
           ),
         ],
       ),
     );
   }
 
-  void _showDatePicker() async {
+  void _showDatePicker(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: currentdate,
+      initialDate: _date,
       firstDate: DateTime.now(),
-      lastDate:
-          DateTime.now().add(const Duration(days: 365 * 5)), // 5 years from now
+      lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
     );
-    if (picked != null && picked != currentdate) {
-      setState(() {
-        currentdate = picked;
-      });
-      widget.onDateChanged(picked);
+    if (picked != null) {
+      setState(
+        () => _date = DateTime(
+          picked.year,
+          picked.month,
+          picked.day,
+          _date.hour,
+          _date.minute,
+        ),
+      );
     }
   }
 
-  void _showTimePicker() async {
+  void _showTimePicker(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.fromDateTime(currentdate),
+      initialTime: TimeOfDay.fromDateTime(_date),
     );
     if (picked != null) {
-      setState(() {
-        currentdate = DateTime(currentdate.year, currentdate.month,
-            currentdate.day, picked.hour, picked.minute);
-      });
-      widget.onDateChanged(currentdate);
-    } else {
-      print('No time picked');
+      setState(
+        () => _date = DateTime(
+          _date.year,
+          _date.month,
+          _date.day,
+          picked.hour,
+          picked.minute,
+        ),
+      );
+    }
+  }
+
+  void submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
+        Alerts.of(context).showError('Please fill in all fields');
+        return;
+      }
+
+      final task = TaskModel(
+        id: widget.initialTask?.id,
+        title: _titleController.text,
+        note: _noteController.text,
+        date: DateFormat('yyyy-MM-dd').format(_date),
+        time: DateFormat('hh:mm a').format(_date),
+        reminder: _reminder,
+        colorindex: _colorIndex,
+      );
+      if (widget.initialTask != null) {
+        context.read<TaskCubit>().updateTask(task);
+      } else {
+        context.read<TaskCubit>().addTask(task);
+      }
     }
   }
 }

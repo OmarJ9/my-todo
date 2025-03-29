@@ -30,11 +30,11 @@ import 'package:todo_app/features/profile/data/data_sources/profile_remote_data_
     as _i470;
 import 'package:todo_app/features/profile/data/repository/profile_repository.dart'
     as _i628;
+import 'package:todo_app/features/task/blocs/task/task_cubit.dart' as _i233;
 import 'package:todo_app/features/task/data/data_sources/task_remote_data_source.dart'
     as _i932;
 import 'package:todo_app/features/task/data/repository/task_repository.dart'
     as _i711;
-import 'package:todo_app/features/task/cubit/task_cubit.dart' as _i580;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -74,8 +74,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i533.SecureStorageService>(),
               gh<_i135.CacheService>(),
             ));
-    gh.factory<_i580.TaskCubit>(
-        () => _i580.TaskCubit(gh<_i711.ITaskRepository>()));
+    gh.factory<_i233.TaskCubit>(
+        () => _i233.TaskCubit(gh<_i711.ITaskRepository>()));
     gh.factory<_i727.ProfileCubit>(
         () => _i727.ProfileCubit(gh<_i628.IProfileRepository>()));
     gh.lazySingleton<_i766.IAuthRepository>(() => _i766.AuthRepository(

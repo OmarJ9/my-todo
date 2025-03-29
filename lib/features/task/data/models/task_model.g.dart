@@ -17,6 +17,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
     );
 
 Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
+      '_id': instance.id,
       'title': instance.title,
       'note': instance.note,
       'date': instance.date,

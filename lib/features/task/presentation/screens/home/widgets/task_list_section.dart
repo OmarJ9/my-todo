@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/theme/app_thems.dart';
 import 'package:todo_app/core/widgets/app_alerts.dart';
-import 'package:todo_app/features/task/cubit/task_cubit.dart';
+import 'package:todo_app/features/task/blocs/task/task_cubit.dart';
 import 'package:todo_app/features/task/presentation/screens/home/widgets/task_card.dart';
 import 'package:todo_app/core/widgets/app_circular_indicator.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';

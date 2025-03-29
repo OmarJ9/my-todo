@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../data/models/task_model.dart';
-import '../data/repository/task_repository.dart';
+import '../../data/models/task_model.dart';
+import '../../data/repository/task_repository.dart';
 
 part 'task_state.dart';
 

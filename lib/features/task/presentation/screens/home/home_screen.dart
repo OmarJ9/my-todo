@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/core/utils/extensions.dart';
-import 'package:todo_app/features/task/cubit/task_cubit.dart';
+import 'package:todo_app/features/task/blocs/task/task_cubit.dart';
 import 'package:todo_app/core/widgets/app_button.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
