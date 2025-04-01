@@ -30,6 +30,8 @@ class LocalNotificationService {
   ) async {
     // Generate a unique notification ID from title and date
     int notificationId = title.hashCode;
+
+    await _flutterLocalNotificationsPlugin.cancel(notificationId);
     const androidDetails = AndroidNotificationDetails(
       'id_1',
       'Basic Channel',
@@ -52,7 +54,13 @@ class LocalNotificationService {
     );
   }
 
-  Future<void> cancelNotification(String title) async {
-    await _flutterLocalNotificationsPlugin.cancel(title.hashCode);
+  Future<void> listPendingNotifications() async {
+    final List<PendingNotificationRequest> pendingNotifications =
+        await _flutterLocalNotificationsPlugin.pendingNotificationRequests();
+
+    for (var pendingNotification in pendingNotifications) {
+      print(
+          'Pending notification: [id: ${pendingNotification.id}, title: ${pendingNotification.title}, body: ${pendingNotification.body}, payload: ${pendingNotification.payload}]');
+    }
   }
 }

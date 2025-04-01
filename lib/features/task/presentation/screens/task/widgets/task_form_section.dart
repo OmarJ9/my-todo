@@ -210,6 +210,13 @@ class _TaskFormSectionState extends State<TaskFormSection> {
       );
       if (widget.initialTask != null) {
         context.read<TaskCubit>().updateTask(task);
+
+        LocalNotificationService().scheduleNotification(
+          "Task Reminder",
+          "This is a reminder for your task: ${task.title}",
+          _date,
+          _reminder,
+        );
       } else {
         context.read<TaskCubit>().addTask(task);
         LocalNotificationService().scheduleNotification(
