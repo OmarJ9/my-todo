@@ -318,6 +318,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0,
       title: Text(
         'Profile',
         style: AppTypography.bold20(),

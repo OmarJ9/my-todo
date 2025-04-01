@@ -14,7 +14,7 @@ class DioClient {
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       responseType: ResponseType.json,
-      baseUrl: "http://localhost:3000/api/v1",
+      baseUrl: "http://10.0.2.2:3000/api/v1",
       contentType: 'application/json',
       validateStatus: (status) => status! < 500,
     ),
