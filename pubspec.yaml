@@ -55,6 +55,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   shimmer: ^3.0.0
   flutter_local_notifications: ^19.0.0
+  timezone: ^0.10.0
 
 dev_dependencies:
   build_runner: ^2.4.13

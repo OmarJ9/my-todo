@@ -11,6 +11,7 @@ import 'package:todo_app/core/utils/extensions.dart';
 import 'package:todo_app/features/task/presentation/screens/task/widgets/color_picker_section.dart';
 import 'package:todo_app/features/task/presentation/screens/task/widgets/reminder_section.dart';
 
+import '../../../../../../core/services/local_notifications_service.dart';
 import '../../../../../../core/widgets/app_alerts.dart';
 import '../../../../blocs/task/task_cubit.dart';
 
@@ -168,17 +169,26 @@ class _TaskFormSectionState extends State<TaskFormSection> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_date),
+      initialEntryMode: TimePickerEntryMode.dial,
     );
+
     if (picked != null) {
-      setState(
-        () => _date = DateTime(
-          _date.year,
-          _date.month,
-          _date.day,
-          picked.hour,
-          picked.minute,
-        ),
-      );
+      if (picked.hour < DateTime.now().hour) {
+        if (context.mounted) {
+          Alerts.of(context)
+              .showError('Please select a time after the current time');
+        }
+      } else {
+        setState(
+          () => _date = DateTime(
+            _date.year,
+            _date.month,
+            _date.day,
+            picked.hour,
+            picked.minute,
+          ),
+        );
+      }
     }
   }
 
@@ -202,6 +212,12 @@ class _TaskFormSectionState extends State<TaskFormSection> {
         context.read<TaskCubit>().updateTask(task);
       } else {
         context.read<TaskCubit>().addTask(task);
+        LocalNotificationService().scheduleNotification(
+          "Task Reminder",
+          "This is a reminder for your task: ${task.title}",
+          _date,
+          _reminder,
+        );
       }
     }
   }

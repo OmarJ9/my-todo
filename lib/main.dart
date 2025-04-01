@@ -12,13 +12,19 @@ import 'package:todo_app/features/auth/blocs/sign_up_form/sign_up_form_cubit.dar
 import 'package:todo_app/features/task/blocs/task/task_cubit.dart';
 import 'package:todo_app/features/profile/cubit/profile_cubit.dart';
 
+import 'core/services/local_notifications_service.dart';
 import 'core/theme/theme_cubit.dart';
 import 'features/auth/blocs/login_form/login_form_cubit.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   configureDependencies();
+
+  tz.initializeTimeZones();
+
+  await LocalNotificationService().init();
 
   final storage = await HydratedStorage.build(
     storageDirectory: HydratedStorageDirectory(
