@@ -2,6 +2,8 @@
 
 A modern, minimalist task management application built with Flutter. Stay organized and boost your productivity with our intuitive interface. Built using Clean Architecture principles for maintainable, testable, and scalable code.
 
+## Star ⭐ the repo if you like what you see 😉.
+
 ## 🌟 Features
 
 - ✨ Clean, modern UI design
@@ -16,7 +18,13 @@ A modern, minimalist task management application built with Flutter. Stay organi
 
 ## 📸 Screenshots
 
-<img src="assets/screenshots/screenshot-1.png" width="300"> <img src="assets/screenshots/screenshot-2.png" width="300"> <img src="assets/screenshots/screenshot-3.png" width="300"> <img src="assets/screenshots/screenshot-4.png" width="300"> <img src="assets/screenshots/screenshot-5.png" width="300"> <img src="assets/screenshots/screenshot-6.png" width="300"> <img src="assets/screenshots/screenshot-7.png" width="300">
+| ![Screenshot 1](assets/screenshots/screenshot-1.png) | ![Screenshot 2](assets/screenshots/screenshot-2.png) | ![Screenshot 3](assets/screenshots/screenshot-3.png) |
+|---|---|---|
+| ![Screenshot 4](assets/screenshots/screenshot-8.png) | ![Screenshot 5](assets/screenshots/screenshot-4.png) | ![Screenshot 6](assets/screenshots/screenshot-5.png) |
+| ![Screenshot 7](assets/screenshots/screenshot-6.png) | ![Screenshot 8](assets/screenshots/screenshot-7.png) | ![Screenshot 9](assets/screenshots/screenshot-9.png) |
+
+
+
 
 ## 🏗️ Architecture
 
