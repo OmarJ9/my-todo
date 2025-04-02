@@ -31,7 +31,7 @@ class LocalNotificationService {
     // Generate a unique notification ID from title and date
     int notificationId = title.hashCode;
 
-    await _flutterLocalNotificationsPlugin.cancel(notificationId);
+    await cancelNotification(notificationId);
     const androidDetails = AndroidNotificationDetails(
       'id_1',
       'Basic Channel',
@@ -52,5 +52,9 @@ class LocalNotificationService {
       details,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    await _flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 }

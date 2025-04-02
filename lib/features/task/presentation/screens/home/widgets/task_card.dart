@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/features/task/blocs/task/task_cubit.dart';
 import '../../../../../../core/constants/app_sizes.dart';
+import '../../../../../../core/services/local_notifications_service.dart';
 
 class TaskCard extends StatelessWidget {
   final String id;
@@ -27,6 +28,7 @@ class TaskCard extends StatelessWidget {
       key: Key(id),
       onDismissed: (direction) async {
         await context.read<TaskCubit>().deleteTask(id);
+        await LocalNotificationService().cancelNotification(title.hashCode);
         final date = DateTime.now();
         if (context.mounted) {
           context
