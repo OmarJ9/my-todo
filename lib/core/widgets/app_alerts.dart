@@ -47,4 +47,24 @@ class Alerts {
         ),
       );
   }
+
+  void showWarning(String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 180.h,
+          ),
+          content: AwesomeSnackbarContent(
+            title: "Warning!",
+            message: message,
+            contentType: ContentType.warning,
+          ),
+        ),
+      );
+  }
 }

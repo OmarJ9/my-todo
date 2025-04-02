@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:todo_app/core/theme/app_styles.dart';
+import 'package:todo_app/core/widgets/app_alerts.dart';
 
 class AuthOauthSection extends StatelessWidget {
   const AuthOauthSection({super.key});
@@ -14,7 +15,11 @@ class AuthOauthSection extends StatelessWidget {
           context: context,
           icon: Brands.google,
           label: 'Continue with Google',
-          onPressed: () {},
+          onPressed: () {
+            Alerts.of(context).showWarning(
+              'This feature is not available yet. Please try again later.',
+            );
+          },
           color: Colors.deepPurple,
         ),
         AppSizes.gapH16,
@@ -22,7 +27,11 @@ class AuthOauthSection extends StatelessWidget {
           context: context,
           icon: Brands.apple_logo,
           label: 'Continue with Apple',
-          onPressed: () {},
+          onPressed: () {
+            Alerts.of(context).showWarning(
+              'This feature is not available yet. Please try again later.',
+            );
+          },
           isDark: true,
         ),
       ],
