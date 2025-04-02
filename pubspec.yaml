@@ -30,6 +30,7 @@ dependencies:
   animate_do: ^4.2.0
   awesome_dialog: ^3.2.1
   date_picker_timeline: ^1.2.3
+  day_night_time_picker: ^1.3.1
   equatable: ^2.0.3
   flutter:
     sdk: flutter

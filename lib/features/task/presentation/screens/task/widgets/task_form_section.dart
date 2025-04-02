@@ -1,3 +1,4 @@
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -166,36 +167,36 @@ class _TaskFormSectionState extends State<TaskFormSection> {
   }
 
   void _showTimePicker(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(_date),
-      initialEntryMode: TimePickerEntryMode.dial,
-    );
-
-    if (picked != null) {
-      if (picked.hour < DateTime.now().hour) {
-        if (context.mounted) {
-          Alerts.of(context)
-              .showError('Please select a time after the current time');
-        }
-      } else {
-        setState(
+    Navigator.push(
+      context,
+      showPicker(
+        value: Time(hour: _date.hour, minute: _date.minute),
+        is24HrFormat: true,
+        onChange: (value) => setState(
           () => _date = DateTime(
             _date.year,
             _date.month,
             _date.day,
-            picked.hour,
-            picked.minute,
+            value.hour,
+            value.minute,
           ),
-        );
-      }
-    }
+        ),
+      ),
+    );
   }
 
   void submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
         Alerts.of(context).showError('Please fill in all fields');
+        return;
+      }
+
+      if (_date
+          .subtract(Duration(minutes: _reminder))
+          .isBefore(DateTime.now())) {
+        Alerts.of(context)
+            .showError('Please select a date and time after the current date');
         return;
       }
 
