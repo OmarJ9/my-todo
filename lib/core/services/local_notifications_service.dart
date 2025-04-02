@@ -7,9 +7,16 @@ class LocalNotificationService {
 
   Future<void> init() async {
     final settings = InitializationSettings(
-      android: const AndroidInitializationSettings("@mipmap/ic_launcher"),
+      android: const AndroidInitializationSettings(
+        "@mipmap/ic_launcher",
+      ),
       iOS: const DarwinInitializationSettings(),
     );
+
+    _flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
 
     await _flutterLocalNotificationsPlugin.initialize(
       settings,
