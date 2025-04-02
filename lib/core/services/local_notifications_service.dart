@@ -53,14 +53,4 @@ class LocalNotificationService {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
-
-  Future<void> listPendingNotifications() async {
-    final List<PendingNotificationRequest> pendingNotifications =
-        await _flutterLocalNotificationsPlugin.pendingNotificationRequests();
-
-    for (var pendingNotification in pendingNotifications) {
-      print(
-          'Pending notification: [id: ${pendingNotification.id}, title: ${pendingNotification.title}, body: ${pendingNotification.body}, payload: ${pendingNotification.payload}]');
-    }
-  }
 }

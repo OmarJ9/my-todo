@@ -41,25 +41,14 @@ class ProfileRepository implements IProfileRepository {
   @override
   Future<Either<Failure, UserModel>> updateProfile(UserModel user) async {
     try {
-      // Log what we're sending for debugging
-      print("Updating profile with: ${user.toString()}");
-
       final updatedUser = await _profileRemoteDataSource.updateProfile(user);
-
-      // Log what we received back
-      print("Server response: ${updatedUser.toString()}");
 
       return right(updatedUser);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
-      print("DioException updating profile: ${errorMessage.message}");
-      print("Request data: ${e.requestOptions.data}");
-      if (e.response != null) {
-        print("Response data: ${e.response?.data}");
-      }
+
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
-      print("Error updating profile: ${e.toString()}");
       return left(
           ServerFailure(errorMessage: "Something went wrong: ${e.toString()}"));
     }

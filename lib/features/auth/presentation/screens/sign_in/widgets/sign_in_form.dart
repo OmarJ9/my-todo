@@ -58,6 +58,7 @@ class _PasswordField extends StatelessWidget {
           keyboardType: TextInputType.visiblePassword,
           obscureText: state.isObscure,
           suffixIcon: state.isObscure ? Icons.visibility_off : Icons.visibility,
+          textInputAction: TextInputAction.done,
           onSuffixIconTap: () {
             context.read<LoginFormCubit>().changeObscurity();
           },

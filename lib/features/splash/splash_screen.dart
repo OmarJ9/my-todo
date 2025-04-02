@@ -6,7 +6,6 @@ import 'package:todo_app/core/di/dependency_injection.dart';
 import 'package:todo_app/core/route/app_router.dart';
 import 'package:todo_app/core/services/secure_storage_service.dart';
 import 'package:todo_app/core/services/shared_prefs_service.dart';
-import 'package:todo_app/core/theme/app_styles.dart';
 import 'package:todo_app/core/constants/app_sizes.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:todo_app/core/utils/extensions.dart';
@@ -39,7 +38,7 @@ class _SPlashScreenState extends State<SPlashScreen> {
   void _startDelay() {
     _timer = Timer(const Duration(seconds: 3), () async {
       final token =
-          await getIt.get<SecureStorageService>().read(CacheKeys.refreshToken);
+          await getIt.get<SecureStorageService>().read(CacheKeys.accessToken);
       final isLogged = getIt.get<CacheService>().getBool(CacheKeys.isLogged);
 
       final onBoardDone =
@@ -79,17 +78,6 @@ class _SPlashScreenState extends State<SPlashScreen> {
                     size: 80,
                     color: context.theme.primaryColor,
                   ),
-                ),
-              ),
-            ),
-            AppSizes.gapH24,
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              duration: const Duration(milliseconds: 1000),
-              child: Text(
-                'My Todo',
-                style: AppTypography.bold32(
-                  color: context.theme.primaryColor,
                 ),
               ),
             ),

@@ -46,7 +46,6 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
-  jwt_decoder: ^2.0.1
   icons_plus: ^5.0.0
   hydrated_bloc: ^10.0.0
   path_provider: ^2.1.5

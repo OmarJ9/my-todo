@@ -26,10 +26,11 @@ class AppTextfield extends StatelessWidget {
   final double? verticalPadding;
   final String? errorText;
   final String? initialValue;
-
+  final TextInputAction? textInputAction;
   const AppTextfield({
     super.key,
     required this.hint,
+    this.textInputAction = TextInputAction.next,
     this.validator,
     this.focusNode,
     this.obscureText = false,
@@ -66,6 +67,7 @@ class AppTextfield extends StatelessWidget {
       onTapOutside: onTapOutside,
       obscureText: obscureText!,
       onTap: readOnly ? onTap : null,
+      textInputAction: textInputAction,
       focusNode: focusNode,
       decoration: InputDecoration(
         hintText: hint,

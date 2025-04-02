@@ -41,6 +41,7 @@ class _UsernameField extends StatelessWidget {
     return AppTextfield(
       hint: 'Enter Your Username',
       keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
       onChange: (value) {
         context.read<SignUpFormCubit>().usernameChanged(value);
       },
@@ -60,6 +61,7 @@ class _EmailField extends StatelessWidget {
     return AppTextfield(
       hint: 'Enter Your Email',
       keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
       onChange: (value) {
         context.read<SignUpFormCubit>().emailChanged(value);
       },
@@ -81,6 +83,7 @@ class _PasswordField extends StatelessWidget {
           hint: 'Enter Your Password',
           keyboardType: TextInputType.visiblePassword,
           obscureText: state.isPasswordObscure,
+          textInputAction: TextInputAction.done,
           suffixIcon:
               state.isPasswordObscure ? Icons.visibility_off : Icons.visibility,
           onSuffixIconTap: () {

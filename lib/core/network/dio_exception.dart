@@ -58,6 +58,10 @@ class DioExceptions implements Exception {
         return isString
             ? error['message']
             : error['message'].first ?? 'Pas trouvé';
+      case 409:
+        return isString
+            ? error['message']
+            : error['message'].first ?? 'Conflit';
       case 420:
         return 'La session a expiré.Veuillez vous connecter à nouveau';
       case 500:
