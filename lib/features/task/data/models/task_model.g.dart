@@ -13,7 +13,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
       date: json['date'] as String?,
       time: json['time'] as String?,
       reminder: (json['reminder'] as num?)?.toInt(),
-      colorindex: (json['colorindex'] as num?)?.toInt(),
+      colorIndex: (json['colorIndex'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
@@ -23,5 +23,5 @@ Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
       'date': instance.date,
       'time': instance.time,
       'reminder': instance.reminder,
-      'colorindex': instance.colorindex,
+      'colorIndex': instance.colorIndex,
     };

@@ -11,7 +11,7 @@ class TaskModel {
   final String? date;
   final String? time;
   final int? reminder;
-  final int? colorindex;
+  final int? colorIndex;
 
   TaskModel({
     this.id,
@@ -20,7 +20,7 @@ class TaskModel {
     this.date,
     this.time,
     this.reminder,
-    this.colorindex,
+    this.colorIndex,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
@@ -30,6 +30,6 @@ class TaskModel {
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, title: $title, note: $note, date: $date, time: $time, reminder: $reminder, colorindex: $colorindex)';
+    return 'TaskModel(id: $id, title: $title, note: $note, date: $date, time: $time, reminder: $reminder, colorIndex: $colorIndex)';
   }
 }

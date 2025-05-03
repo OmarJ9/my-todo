@@ -28,10 +28,10 @@ class TaskRepository implements ITaskRepository {
           'date': date,
         },
       );
-      return right(response.tasks);
+      return right(response);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
-
+      debugPrint('DioException: $errorMessage');
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {
       return left(ServerFailure(errorMessage: "Something went wrong"));
@@ -41,10 +41,12 @@ class TaskRepository implements ITaskRepository {
   @override
   Future<Either<Failure, bool>> addTask(TaskModel task) async {
     try {
+      debugPrint('Adding task: $task');
       await _taskRemoteDataSource.addTask(task);
       return right(true);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
+      debugPrint('DioException: $errorMessage');
 
       return left(ServerFailure(errorMessage: errorMessage.message));
     } catch (e) {

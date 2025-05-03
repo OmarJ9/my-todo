@@ -46,7 +46,7 @@ class TaskListSection extends StatelessWidget {
                     Widget taskcontainer = TaskCard(
                       id: task.id ?? '',
                       color: AppTheme
-                          .themes[AppThemeColor.values[task.colorindex ?? 0]]!
+                          .themes[AppThemeColor.values[task.colorIndex ?? 0]]!
                           .primaryColor,
                       title: task.title ?? '',
                       time: task.time ?? '',

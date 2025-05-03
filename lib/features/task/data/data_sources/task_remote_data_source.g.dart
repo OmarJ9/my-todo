@@ -22,20 +22,20 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<TaskResponseModel> getTasks(Map<String, dynamic> body) async {
+  Future<List<TaskModel>> getTasks(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<TaskResponseModel>(Options(
+    final _options = _setStreamType<List<TaskModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/tasks',
+          '/task',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -44,10 +44,12 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TaskResponseModel _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<TaskModel> _value;
     try {
-      _value = TaskResponseModel.fromJson(_result.data!);
+      _value = _result.data!
+          .map((dynamic i) => TaskModel.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -69,7 +71,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/tasks',
+          '/task',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -106,7 +108,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/tasks/${id}',
+          '/task/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -131,7 +133,7 @@ class _ITaskRemoteDataSource implements ITaskRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/tasks/${id}',
+          '/task/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

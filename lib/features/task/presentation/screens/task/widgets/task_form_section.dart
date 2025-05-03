@@ -45,7 +45,7 @@ class _TaskFormSectionState extends State<TaskFormSection> {
     _noteController = TextEditingController(text: widget.initialTask?.note);
     _date = widget.initialDate;
     _reminder = widget.initialTask?.reminder ?? 5;
-    _colorIndex = widget.initialTask?.colorindex ?? 0;
+    _colorIndex = widget.initialTask?.colorIndex ?? 0;
   }
 
   @override
@@ -207,7 +207,7 @@ class _TaskFormSectionState extends State<TaskFormSection> {
         date: DateFormat('yyyy-MM-dd').format(_date),
         time: DateFormat('hh:mm a').format(_date),
         reminder: _reminder,
-        colorindex: _colorIndex,
+        colorIndex: _colorIndex,
       );
       if (widget.initialTask != null) {
         context.read<TaskCubit>().updateTask(task);
