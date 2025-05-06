@@ -21,6 +21,6 @@ abstract class IAuthRemoteDataSource {
     @Body() SignUpRequestBody signupRequestBody,
   );
 
-  @DELETE("/auth/logout")
+  @POST("/auth/logout")
   Future<void> logOut();
 }

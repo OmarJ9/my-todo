@@ -3,7 +3,10 @@ import '../../../../core/services/secure_storage_service.dart';
 import '../../../../core/services/shared_prefs_service.dart';
 
 abstract class IAuthLocalDataSource {
-  Future<void> saveTokens(String accessToken);
+  Future<void> saveTokens(
+    String accessToken,
+    String refreshToken,
+  );
 
   Future<void> saveIsLogged();
 
@@ -21,10 +24,14 @@ class AuthLocalDataSource implements IAuthLocalDataSource {
   );
 
   @override
-  Future<void> saveTokens(String accessToken) async {
+  Future<void> saveTokens(
+    String accessToken,
+    String refreshToken,
+  ) async {
     try {
       await _secureStorageService.deleteAll();
       await _secureStorageService.write('access_token', accessToken);
+      await _secureStorageService.write('refresh_token', refreshToken);
     } catch (_) {
       rethrow;
     }

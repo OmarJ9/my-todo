@@ -43,7 +43,10 @@ class AuthRepository implements IAuthRepository {
           password: password,
         ),
       );
-      await _authLocalDataSource.saveTokens(response.accessToken);
+      await _authLocalDataSource.saveTokens(
+        response.accessToken,
+        response.refreshToken,
+      );
 
       await _authLocalDataSource.saveIsLogged();
 
@@ -71,7 +74,10 @@ class AuthRepository implements IAuthRepository {
         ),
       );
 
-      await _authLocalDataSource.saveTokens(response.accessToken);
+      await _authLocalDataSource.saveTokens(
+        response.accessToken,
+        response.refreshToken,
+      );
 
       await _authLocalDataSource.saveIsLogged();
 

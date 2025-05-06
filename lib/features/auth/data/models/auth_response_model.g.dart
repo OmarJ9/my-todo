@@ -9,4 +9,5 @@ part of 'auth_response_model.dart';
 AuthResponseModel _$AuthResponseModelFromJson(Map<String, dynamic> json) =>
     AuthResponseModel(
       accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
     );

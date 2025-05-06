@@ -62,14 +62,18 @@ class DioClient {
     final refreshToken = await storage.read('refresh_token');
 
     if (refreshToken != null && refreshToken.isNotEmpty) {
+      debugPrint('Refresh token found: $refreshToken');
       return refreshToken;
     }
+
+    debugPrint('No refresh token found');
 
     return null;
   }
 
   static Future<bool> _refreshToken() async {
     try {
+      debugPrint('Refreshing token');
       if (_isRefreshing) return false;
       _isRefreshing = true;
 
@@ -79,7 +83,10 @@ class DioClient {
       final response = await Dio(BaseOptions(
         baseUrl: _dio.options.baseUrl,
         contentType: 'application/json',
-      )).post('auth/refresh', data: {'refreshToken': refreshToken});
+        headers: {
+          'Authorization': 'Bearer $refreshToken',
+        },
+      )).post('auth/refresh');
 
       if (response.statusCode == 200 && response.data != null) {
         final newAccessToken = response.data['accessToken'];

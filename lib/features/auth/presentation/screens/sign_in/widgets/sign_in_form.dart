@@ -87,7 +87,7 @@ class _SignInButton extends StatelessWidget {
         return AppButton(
           color: context.theme.primaryColor,
           width: 1.sw,
-          title: 'Sign Up',
+          title: 'Sign In',
           isLoading: isLoading,
           onClick: (isEnabled && !isLoading)
               ? () {
