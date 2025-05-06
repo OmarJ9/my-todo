@@ -75,7 +75,7 @@ Each feature follows the same layered architecture:
 
 ### Backend Setup
 
-For detailed backend setup instructions, visit [my-todo-api](https://github.com/OmarJ9/my_todo_api#readme)
+For detailed backend setup instructions, visit [my-todo-api](https://github.com/OmarJ9/todo-api-nestjs#readme)
 
 ### Flutter App Setup
 
